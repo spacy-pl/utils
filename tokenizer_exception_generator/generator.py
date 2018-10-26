@@ -1,6 +1,7 @@
 from html.parser import HTMLParser
 import xml.etree.ElementTree as ET
 import sre_yield
+import re
 
 
 class Rule:
@@ -78,11 +79,12 @@ pl_uppercase = pl_lowercase.upper()
 final_exceptions = []
 
 for rule in exception_rules:
-    pattern = rule.before_pattern_str.replace("\p{Lu}", "[" + pl_uppercase + "]").replace("\p{Ll}",
-                                                                                          "[" + pl_lowercase + "]").replace(
-        "(?iu)", "")
 
-    # @TODO exclude rules containing only punctuation marks
+    # replace unicode properties with standard regex
+    pattern = rule.before_pattern_str\
+        .replace("\p{Lu}", "[" + pl_uppercase + "]")\
+        .replace("\p{Ll}", "[" + pl_lowercase + "]")\
+        .replace("(?iu)", "")
 
     if '+' in pattern:
         continue
@@ -93,13 +95,17 @@ for rule in exception_rules:
     except:
         print(f"Error in {rule}")
 
-excluded_characters = ['\\', '\t', '\x0b', '\b', '\r', '\x0c', '\n']
+excluded_characters = ['\\', '\t', '\x0b', '\b', '\r', '\x0c', '\n', ')', '(', ',']
 
-final_exceptions = [a.rstrip("\n\r ") for a in final_exceptions if not any(exc in a for exc in excluded_characters)]
+# filter out exceptions that contain characters such as \r, remove trailing spaces
+# for example, for each X. X. type rule there was a X.\rX. rule in the XML file
+final_exceptions = [a.rstrip("\n\r ").lstrip(" ") for a in final_exceptions if not any(exc in a for exc in excluded_characters)]
+
+# filter out exceptions that don't contain any letters
+final_exceptions = [fe for fe in final_exceptions if re.search(f'.*[{pl_lowercase}{pl_uppercase}].*', fe)]
 
 # avoid duplicates
 final_exceptions = set(final_exceptions)
-
 
 # merge with exceptions from wikipedia
 for fn in [f'skroty{i}.html' for i in range(1,4)]:
