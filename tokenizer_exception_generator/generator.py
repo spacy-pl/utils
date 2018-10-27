@@ -116,5 +116,6 @@ for fn in [f'skroty{i}.html' for i in range(1,4)]:
 # convert back to a sorted list
 final_exceptions = sorted(list(final_exceptions))
 
-with open('result.txt', 'w+', encoding='utf-8') as f:
+with open('exception_list.py', 'w+', encoding='utf-8') as f:
+    f.write('polish_exceptions = ')
     f.write(str(final_exceptions))
