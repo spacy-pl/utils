@@ -9,5 +9,5 @@ iso_sw=set(r.content.decode().split('\n')[:-1])
 SW_list=iso_sw|bieli_sw
 
 with open("data/stop_words.txt", "w") as f:
-    for word in SW_list:
+    for word in sorted(SW_list):
         f.write("{}\n".format(word))
