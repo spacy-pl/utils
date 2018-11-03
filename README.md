@@ -23,6 +23,9 @@ When something in pipeline changed and you want to run all steps again, use
 with `<step_name>` to which you want to rerun pipeline.
 
 ### Synchronization
+First, [set up remote](https://paper.dropbox.com/doc/Access-to-s3--AQ5lLyOsM_xbtNZLgtwbna1LAg-kp68Pmahp3XIIyet2arA5).
+
+
 Synchronization always works with in connection with current branch and commit.
 ```dvc push```
 Send all tracked artifacts to remote.
