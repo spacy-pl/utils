@@ -1,0 +1,11 @@
+cmd: python stop_words/pythonize.py
+deps:
+- md5: 0b04520b4d47484981eb8142caae8add
+  path: stop_words/pythonize.py
+- md5: 2129e51c17746a1ce5efe0b61404a41b
+  path: data/stop_words.txt
+md5: 9a9ba2dca5ddbaa21056c9f6b11f0e5c
+outs:
+- cache: true
+  md5: ab76b5fbd7850b4202dfee5fae421064
+  path: data/stop_words.py

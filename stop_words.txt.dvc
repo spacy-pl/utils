@@ -1,0 +1,9 @@
+cmd: python stop_words/produce_stopwords.py
+deps:
+- md5: 66bc8ffc311987574b876ded1e83ad56
+  path: stop_words/produce_stopwords.py
+md5: c07442a00ff5fd3275a8e6771021c80f
+outs:
+- cache: true
+  md5: 2129e51c17746a1ce5efe0b61404a41b
+  path: data/stop_words.txt
