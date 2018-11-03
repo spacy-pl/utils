@@ -1,9 +1,11 @@
 # spacy-pl-utils
 Utilities for development polish language support for Spacy.
 
+## Folders
+Use separated folders for every module pipeline.
 
 ## Using DVC
-We store all artifact in folders `data` and `models`.
+We store all artifacts in folders `data` and `models`.
 ### Adding new step
 To add new step to pipeline use 
 
