@@ -1,6 +1,9 @@
 # spacy-pl-utils
 Utilities for development polish language support for Spacy.
 
+## Workflow rules  
+Guide is in [this document](https://paper.dropbox.com/doc/Workflow--AQ6bVcDYPRLspZliKCy5kghwAQ-e06Nxsm3ymjd6Y1IKlm24).  
+
 ## Folders
 Use separated folders for every module pipeline.
 
