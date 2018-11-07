@@ -2,6 +2,7 @@ from html.parser import HTMLParser
 import xml.etree.ElementTree as ET
 import sre_yield
 import re
+import os
 
 
 class Rule:
@@ -27,7 +28,7 @@ class MyHTMLParser(HTMLParser):
         self.exceptions += [data]
 
 
-def get_rules_from_xml(filename='segment.srx'):
+def get_rules_from_xml(filename=os.path.expanduser('./data/tokenizer_exception_generator/segment.srx')):
     tree = ET.parse(filename)  # parse XML file
     root = tree.getroot()  # access file's root
 
@@ -108,14 +109,16 @@ final_exceptions = [fe for fe in final_exceptions if re.search(f'.*[{pl_lowercas
 final_exceptions = set(final_exceptions)
 
 # merge with exceptions from wikipedia
-for fn in [f'skroty{i}.html' for i in range(1,4)]:
+for fn in [os.path.expanduser(f'./data/tokenizer_exception_generator/skroty{i}.html') for i in range(1,4)]:
     tmp = parse_html(fn)
     tmp = set(tmp)
     final_exceptions |= tmp
+   
+final_exceptions |= set(['gosp.-polit.', 'rub.', 'k.o.', 'm.st.', 'pp.'])
 
 # convert back to a sorted list
 final_exceptions = sorted(list(final_exceptions))
 
-with open('exception_list.py', 'w+', encoding='utf-8') as f:
+with open(os.path.expanduser('./data/tokenizer_exception_generator/exception_list.py'), 'w+', encoding='utf-8') as f:
     f.write('polish_exceptions = ')
     f.write(str(final_exceptions))
