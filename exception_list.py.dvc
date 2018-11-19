@@ -1,0 +1,17 @@
+cmd: python3 tokenizer_exception_generator/generator.py
+deps:
+- md5: 6964596555f3a5af7f848d927529b511
+  path: data/tokenizer_exception_generator/segment.srx
+- md5: b896d991b36a65c0eac5659d05e4dc5f
+  path: data/tokenizer_exception_generator/skroty1.html
+- md5: 854b78b1c7479ff6cf8c5e68d8586899
+  path: data/tokenizer_exception_generator/skroty2.html
+- md5: eec58f07a86357efc711ac456c77c299
+  path: data/tokenizer_exception_generator/skroty3.html
+- md5: 4b9a674f89e49f1647cc8a5c442abf23
+  path: tokenizer_exception_generator/generator.py
+md5: 625c3b870a0384b5e4f337c0a3fe230b
+outs:
+- cache: true
+  md5: 4cea45c174c89add069d3940e5012f63
+  path: data/tokenizer_exception_generator/exception_list.py
