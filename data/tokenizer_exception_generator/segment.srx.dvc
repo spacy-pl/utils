@@ -1,0 +1,5 @@
+md5: e0dc06c7e2479c591304b0b9ca1ec8d1
+outs:
+- cache: true
+  md5: 6964596555f3a5af7f848d927529b511
+  path: segment.srx
