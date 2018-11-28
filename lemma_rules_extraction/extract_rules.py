@@ -38,7 +38,6 @@ def main(args):
     rule_groups = defaultdict(list)
     comments = defaultdict(list)
     flag = ''
-    lines.append(("", ""))
     for l in lines:
         line = l[0]
         if line.startswith('flag*'):
