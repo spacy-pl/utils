@@ -35,6 +35,6 @@ fleksem_to_pos = {'ADJ': 'ADJ',
                   'SIEBIE': 'PRON',
                   'SUBST': 'NOUN',
                   'WINIEN': 'VERB',
-                  'XXX'}
+                  'XXX': 'X'}
 
 closed_pos = {'ADP', 'AUX', 'CCONJ', 'DET', 'NUM', 'PART', 'PRON', 'SCONJ'}
