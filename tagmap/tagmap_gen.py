@@ -40,4 +40,6 @@ for k, v in structurized_data.items():
 
 prefix += ',\n'.join(tagmap_list)
 
+prefix += "}"
+
 print(prefix)
