@@ -37,7 +37,7 @@ with open('pos.json', 'r') as f:
 tagmap_list = []
 for k, v in structurized_data.items():
     for v1 in v:
-        tagmap_list += ["\"" + v1['postag'] +
+        tagmap_list += ["\"" + k + ':' + ':'.join(v1['tags']) +
                         "\": {POS: " + fleksem_to_pos[k] +
                         ", 'features': '" + ':'.join(v1['tags'])
                         + "'}"]
