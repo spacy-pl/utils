@@ -1,13 +1,12 @@
 import os
 import json
-import nltk
 from tagmap.tagmap_draw import fleksem_to_pos
 
 prefix = """from ..symbols import *
 TAG_MAP = {
 """
 
-with open('pos.json', 'r') as f:
+with open(os.path.expanduser('data/tagset.json'), 'r') as f:
     print(f)
     structurized_data = json.load(f)
 
@@ -22,8 +21,11 @@ for k, v in structurized_data.items():
         ]
         # this could be done better by using dict and converting it to string later
 
-prefix += ',\n'.join(tagmap_list)
+res = prefix
 
-prefix += "}"
+res += ',\n'.join(tagmap_list)
 
-print(prefix)
+res += "}"
+
+with open(os.path.expanduser('data/tagmap.py'), 'w') as f:
+    f.write(res)
