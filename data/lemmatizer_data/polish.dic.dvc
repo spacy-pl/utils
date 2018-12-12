@@ -1,0 +1,12 @@
+cmd: tar -jxvf sjp-ispell-pl-src.tar.bz2 sjp-ispell-pl-20181128/polish.aff sjp-ispell-pl-20181128/polish.all
+deps:
+- md5: e7cddc667880df380375bbf5a11df449
+  path: sjp-ispell-pl-src.tar.bz2
+md5: 70cd0a3409a2fa4633bbc112e0cdb204
+outs:
+- cache: true
+  md5: 73b94aca0aa4cfaef1e26acf23b60e34
+  path: polish.dic
+- cache: true
+  md5: b281dd4f3bcbce480d1d9d64a8c34305
+  path: polish.aff
