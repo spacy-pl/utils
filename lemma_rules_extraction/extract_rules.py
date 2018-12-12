@@ -94,7 +94,7 @@ def main(args):
 
     rule_groups, comments = parse_aff_lines(lines)
 
-    if os.path.isfile(args.private_rules):
+    if args.private_rules:
         with open(args.private_rules, 'r') as f:
             lines = f.readlines()
         priv_rule_groups, priv_comments = parse_aff_lines(lines)
@@ -127,7 +127,6 @@ if __name__ == '__main__':
                         action='store_true')
     parser.add_argument('--description_file', type=str, help="Descrition file path",
                         default=settings.FLAGS_DESC)
-    parser.add_argument('--private_rules', type=str, help="Relative path to private rules file",
-                        default=settings.PRIVATE_RULES)
+    parser.add_argument('--private_rules', type=str, help="Relative path to private rules file")
     args = parser.parse_args()
     main(args)
