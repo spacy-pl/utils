@@ -3,38 +3,33 @@ fleksem_to_pos = {'ADJ': 'ADJ',
                   'ADJC': 'ADJ',
                   'ADJP': 'ADJ',
                   'ADV': 'ADV',
-                  'AGLT': 'VERB',  # TO VERIFY
-                  'BEDZIE': 'VERB',  # TO VERIFY 'BYĆ' IS AUX IN UD
+                  'AGLT': 'VERB',  # verbfin
+                  'BEDZIE': 'VERB',  # TODO: veryfy 'byc' is aux in UD
                   'BREV': 'X',  # Consider assiging parts of speech of their full forms and adding attr "abbrev"
-                  'BURK': 'PART',  # TODO: find better solution
+                  'BURK': 'ADV',  # 'trochu' itd. TODO: ask experts
                   'COMP': 'SCONJ',  # spójnik podrzędny
                   'CONJ': 'CCONJ',  # spójnik współrzędny
                   'DEPR': 'NOUN',
-                  'FIN': 'VERB',
-                  # NKJP DIFFERS FROM UD(IN UD GET IS NOUN)
-                  # NEED TO CHECK AND CONSIDER CONSEQUENCES
-                  'GER': 'VERB',
+                  'FIN': 'VERB', # verbfin
+                  'GER': 'NOUN', 
                   'IMPS': 'VERB',
-                  'IMPT': 'VERB',
+                  'IMPT': 'VERB', #verbfin
                   'INF': 'VERB',
                   'INTERJ': 'INTJ',
-                  'INTERP': 'PUNCT',  # VERIFY: INTERP CAN BE SYMBOL(SYM)?
+                  'INTERP': 'PUNCT',  # problem with emoticons
                   'NUM': 'NUM',
                   'NUMCOL': 'NUM',
-                  'PACT': 'VERB',  # VERIFY POSSIBILITY TO BE ADJ
+                  'PACT': 'VERB',
                   'PANT': 'VERB',
                   'PCON': 'VERB',
-                  'PPAS': 'VERB',  # VERIFY POSSIBILITY TO BE ADJ
+                  'PPAS': 'VERB', 
                   'PPRON12': 'PRON',
-                  'PPRON3': 'PRON',
-                  # can be AUX if we want so. Check class size and decide.
-                  'PRAET': 'VERB',
-                  'PRED': 'PART',  # meditate on this and check references
+                  'PPRON3': 'PRON', 
+                  'PRAET': 'VERB',  # verbfin can be AUX. TODO: ask experts
+                  'PRED': 'VERB',  # words which change form only with aux word (warto -> warto by)
                   'PREP': 'ADP',  # Adposition = preposition OR postposition
-                  'QUB': 'PART',  # maybe we dont neeet qub at all?
+                  'QUB': 'PART',  # some can be ADV, but mostly PART
                   'SIEBIE': 'PRON',
                   'SUBST': 'NOUN',
-                  'WINIEN': 'VERB',
+                  'WINIEN': 'VERB', #verbfin
                   'XXX': 'X'}
-
-closed_pos = {'ADP', 'AUX', 'CCONJ', 'DET', 'NUM', 'PART', 'PRON', 'SCONJ'}
