@@ -14,7 +14,7 @@ from __future__ import unicode_literals
 MAPPING = {"nouns": set("K Q R M O T V S C X D N W U L Z P j d s l f e i m z o w".split()),
            "verbs": set("I B H J F p u h k".split()),
            "adjectives": set("Y".split()),
-           "other": set("G E x g y".split()),
+           "other": set("G E x g y".split() + [settings.NO_FLAG_SGN]),
            }
 
 

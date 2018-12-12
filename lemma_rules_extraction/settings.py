@@ -5,6 +5,8 @@ from os.path import join as pjoin
 settings_path = realpath(__file__)
 settings_dir = dirname(settings_path)
 
+NO_FLAG_SGN = '_'
+
 LEMMATIZER_DATA_DIR = pjoin(settings_dir, '../data/lemmatizer_data/')
 
 ISPELL_DICT = pjoin(settings_dir, '../data/lemmatizer_data/polish.dic')
