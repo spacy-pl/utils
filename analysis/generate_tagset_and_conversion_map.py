@@ -2,7 +2,7 @@ import os
 import nltk
 
 corpus_path=os.path.abspath("./data/NKJP_1.2_nltk/")
-corpus=nltk.corpus.reader.TaggedCorpusReader(root=corpus_path, fileids=".*")
+corpus=nltk.corpus.reader.TaggedCorpusReader(root=corpus_path, fileids=r"^[^\.]*")
 
 tags = [x[1] for x in corpus.tagged_words()]
 fqd = nltk.FreqDist(tags)

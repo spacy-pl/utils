@@ -1,0 +1,11 @@
+cmd: python3 analysis/convert_nkjp.py
+deps:
+- md5: 54c8e1a9764513a8bd4502f147bf0f4b.dir
+  path: data/NKJP_1.2_nltk
+- md5: 2e7d233bdee4c2c00d1504844dc24c5b
+  path: data/nkjp2us.json
+md5: fa87633fdc0eaed50df95b0cbbd89940
+outs:
+- cache: true
+  md5: ac33105abc03933509189880d0c59dcd.dir
+  path: data/NKJP_1.2_nltk_converted
