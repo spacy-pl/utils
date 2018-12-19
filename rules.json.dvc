@@ -1,0 +1,11 @@
+cmd: python lemma_rules_extraction/extract_rules.py
+deps:
+- md5: b281dd4f3bcbce480d1d9d64a8c34305
+  path: data/lemmatizer_data/polish.aff
+- md5: 4a17c1a34c486d29c4897d245171e18e
+  path: lemma_rules_extraction/extract_rules.py
+md5: ae8cabfea4d9de802b276b390cd8fc56
+outs:
+- cache: true
+  md5: 864f8d0a8a749f4c78e9cded6ac3e8fd
+  path: data/lemmatizer_data/rules.json

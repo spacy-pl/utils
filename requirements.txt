@@ -1,2 +1,4 @@
 dvc
+nltk
 -e https://github.com/google/sre_yield
+boto3
