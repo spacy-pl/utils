@@ -1,0 +1,9 @@
+cmd: python3 tagmap/tagmap_gen.py
+deps:
+- md5: 0884d6c265f308ebbeb8327638579f9d
+  path: data/pos.json
+md5: 3de4f85e2fe88b1ad78ba51e9b9b6a4b
+outs:
+- cache: true
+  md5: 978e08a60a80b7c720ec276f835f12fe
+  path: data/tagmap.py
