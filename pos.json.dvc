@@ -1,0 +1,12 @@
+cmd: python3 analysis/generate_tagset_and_conversion_map.py
+deps:
+- md5: f0e72cd754c88ccbf5cd43239708192f.dir
+  path: data/NKJP_1.2_nltk
+md5: 1ea40705f07d160774e64df1917db238
+outs:
+- cache: true
+  md5: 0884d6c265f308ebbeb8327638579f9d
+  path: data/pos.json
+- cache: true
+  md5: 35d293deed8fa5abf8586385cfd0060b
+  path: data/nkjp2us.json
