@@ -74,7 +74,7 @@ if __name__ == "__main__":
     parser.add_argument('-r', '--rules', type=str, help='Rules extracted from ispell',
                         default=settings.LEMMA_RULES)
     parser.add_argument('-o', '--output_dir', type=str, help='Output file path',
-                        default=settings.LEMMATIZER_DATA_DIR)
+                        default=settings.LEMMA_SOURCES_DIR)
     parser.add_argument('-v', '--verbose', help='Display additional info',
                         action='store_true')
     parser.add_argument('-w', '--words', type=str, help='Words from ispell dict',

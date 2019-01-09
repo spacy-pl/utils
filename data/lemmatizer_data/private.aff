@@ -1,0 +1,16 @@
+# to jest plik z naszymi regułami
+# reguły muszą mieć postać:
+#
+# flag *{?}:
+# {re} {lemma_end} > -{to_remove}, {word_end}
+#
+# na przykład:
+# flag *n:
+#
+# [^IJ] A         >       -A,-
+# [^AEIJO�UY] J A >       -JA,YJ          #abazja
+# [AEIJO�UY] J A  >       -A,-            #szuja
+
+suffixes
+
+# tu wpisuj reguły

@@ -1,11 +1,9 @@
-cmd: python lemma_rules_extraction/assign_lemmas.py
+cmd: python ./lemma_rules_extraction/assign_lemmas.py
 deps:
-- md5: 73b94aca0aa4cfaef1e26acf23b60e34
+- md5: b5b285225a4bcf7d6d040b791bde0e0c
   path: data/lemmatizer_data/polish.dic
-- md5: 662a10a37501fcd14424fbd826466810
-  path: lemma_rules_extraction/assign_lemmas.py
-md5: 2d1bc2d368e7c2e453223cc2caf2c76a
+md5: 7f3fd809a389b1a4aaef173d31f9bd80
 outs:
 - cache: true
-  md5: 321f6bc5ffc1becb2597d0731de0c5b0
+  md5: 020e544ad6e5ae6d45ede381c19e31fe
   path: data/lemmatizer_data/words.json

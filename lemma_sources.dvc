@@ -1,0 +1,11 @@
+cmd: python ./lemma_rules_extraction/prepare_sources.py
+deps:
+- md5: bb899bb02e433f171bf87fea40577266
+  path: data/lemmatizer_data/rules.json
+- md5: 020e544ad6e5ae6d45ede381c19e31fe
+  path: data/lemmatizer_data/words.json
+md5: ea686b212c250e78cb41849217e30761
+outs:
+- cache: true
+  md5: 6e8c867f945a49abc749c78532dc4fde.dir
+  path: data/lemmatizer_data/lemma_sources
