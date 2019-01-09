@@ -1,13 +1,12 @@
 import argparse
 import json
-from collections import defaultdict, namedtuple
+import os
+from collections import defaultdict
 
 import settings
 
 
 def get_rule(aff_code):
-    if '>' not in aff_code:
-        print(aff_code)
     lemma_suf, ends = aff_code.split('>')
     if ',' in ends:
         lemma_end, word_end = ends.split(',')
@@ -30,9 +29,8 @@ def read_flag(lines):
 
 
 def extract_information(lines):
-    lines = [l.decode('iso-8859-2').strip() for l in lines]
+    lines = [l.strip() for l in lines]
     lines = skip_uninteresting(lines)
-    print(lines[:3])
     lines = [l.replace('\t', '') for l in lines]
     # remove empty
     lines = [l for l in lines if l.replace(' ', '') != '']
@@ -69,11 +67,7 @@ def save_comments(args, comments):
             f.write('\n'.join(c) + '\n')
 
 
-def main(args):
-
-    with open(args.ispell_rules, "rb") as f:
-            lines = f.readlines()
-
+def parse_aff_lines(lines):
     processed = extract_information(lines)
 
     rule_groups = defaultdict(list)
@@ -88,6 +82,27 @@ def main(args):
             rule_groups[flag].append(rule)
         else:
             raise Exception("Unexpected empty line! (on flag: {})".format(flag))
+
+    return rule_groups, comments
+
+
+def main(args):
+
+    with open(args.ispell_rules, "rb") as f:
+            lines = f.readlines()
+    lines = [l.decode('iso-8859-2') for l in lines]
+
+    rule_groups, comments = parse_aff_lines(lines)
+
+    if os.path.isfile(args.private_rules):
+        with open(args.private_rules, 'r') as f:
+            lines = f.readlines()
+        priv_rule_groups, priv_comments = parse_aff_lines(lines)
+
+        for key, rules in priv_rule_groups.items():
+            rule_groups[key] += rules
+        for key, c in priv_comments.items():
+            comments[key] += c
 
     with open(args.output, 'w', encoding='utf-8') as f:
         json.dump(rule_groups, f)
@@ -112,5 +127,7 @@ if __name__ == '__main__':
                         action='store_true')
     parser.add_argument('--description_file', type=str, help="Descrition file path",
                         default=settings.FLAGS_DESC)
+    parser.add_argument('--private_rules', type=str, help="Relative path to private rules file",
+                        default=settings.PRIVATE_RULES)
     args = parser.parse_args()
     main(args)
