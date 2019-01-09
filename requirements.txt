@@ -1,4 +1,5 @@
 dvc
 nltk
--e https://github.com/google/sre_yield
+-e git+https://github.com/google/sre_yield#egg=re_yield
 boto3
+gensim
