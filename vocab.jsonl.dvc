@@ -1,0 +1,11 @@
+cmd: python ./vocab_generation/generate_vocab.py
+deps:
+- md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  path: data/NKJP_1.2_nltk
+- md5: cf678b1e359ea01f1b71f2de48e7b2f1
+  path: vocab_generation/generate_vocab.py
+md5: 73dc658841fd40dd68e829ea1b39fc4f
+outs:
+- cache: true
+  md5: 281d5365891a94923b96d6694e8f03e6
+  path: data/vocab.jsonl

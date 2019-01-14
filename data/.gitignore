@@ -2,4 +2,6 @@ stop_words.txt
 stop_words.py
 NKJP_1.2_nltk.zip
 NKJP_1.2_nltk
-/vectors_300.txt
+vectors_300.txt
+vocab.jsonl
+/vocab.jsonl
