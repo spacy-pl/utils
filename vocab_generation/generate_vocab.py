@@ -130,7 +130,7 @@ for i, t in enumerate(samples):
     }
     vocab += [word_entry]
 
-first_line = {"lang": "pl", "oov_prob": -20}
+first_line = {"lang": "pl", "settings": {"oov_prob": -20}}
 
 with open('./data/vocab.jsonl', 'w+') as f:
     json.dump(first_line, f)

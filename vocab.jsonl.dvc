@@ -2,10 +2,10 @@ cmd: python ./vocab_generation/generate_vocab.py
 deps:
 - md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
   path: data/NKJP_1.2_nltk
-- md5: cf678b1e359ea01f1b71f2de48e7b2f1
+- md5: a41f01cb857d7139ede13859a202cce4
   path: vocab_generation/generate_vocab.py
-md5: 73dc658841fd40dd68e829ea1b39fc4f
+md5: 9de13e66991a9c5bcc7fe31b8b6a010e
 outs:
 - cache: true
-  md5: 281d5365891a94923b96d6694e8f03e6
+  md5: 33beba0ea79028356622fcca1ae17202
   path: data/vocab.jsonl
