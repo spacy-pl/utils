@@ -1,6 +1,7 @@
 import os
 import tarfile
 import datetime
+import argparse
 from shutil import copyfile, rmtree
 
 import settings
@@ -8,9 +9,12 @@ import settings
 SJP_ISPELL_ZIP = os.path.join(settings.LEMMATIZER_DATA_DIR, 'tmp_sjp_ispell.tar.bz2')
 
 
-def main():
-    td = datetime.date.today()
-    date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
+def main(args):
+    if args.date:
+        date = args.date
+    else:
+        td = datetime.date.today()
+        date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
     print(date)
     url = 'https://sjp.pl/slownik/ort/sjp-ispell-pl-{}-src.tar.bz2'.format(date)
     os.system('wget {} -O {} -q'.format(url, SJP_ISPELL_ZIP))
@@ -28,4 +32,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Download ispell rules')
+    parser.add_argument('--date', help='Date in format YYYYMMDD')
+    args = parser.parse_args()
+    main(args)
