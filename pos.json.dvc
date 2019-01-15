@@ -1,0 +1,11 @@
+cmd: ' python spacy_convert/converter.py'
+deps:
+- md5: 3b9dec5ea20acec595f7fc9e16e32411
+  path: spacy_convert/converter.py
+- md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  path: data/NKJP_1.2_nltk
+md5: 5e39d78f7d29fab5dbfef6995ad443eb
+outs:
+- cache: true
+  md5: 6cfcad23cc4cf26a278b96764a5278ff
+  path: data/spacy_convert/pos.json
