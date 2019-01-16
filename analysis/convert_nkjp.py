@@ -15,7 +15,7 @@ nkjp_files = os.listdir(nkjp_path)
 nkjp_files = [file for file in nkjp_files if os.path.isfile(os.path.join(nkjp_path, file))]
 fails = []
 for corpus_file in nkjp_files:
-    with open(nkjp_path+corpus_file, 'r') as f:
+    with open(os.path.join(nkjp_path, corpus_file), 'r') as f:
         try:
             res = f.read()
             print(nkjp_path+corpus_file)
@@ -31,5 +31,6 @@ for corpus_file in nkjp_files:
             fails += [corpus_file]
 
 
-print("Failed:")
-print(fails)
+if len(fails) > 0:
+    print("Failed:")
+    print(fails)
