@@ -1,0 +1,17 @@
+cmd: ' python training/split-data.py --input-file data/spacy_convert/pos.json --train-output
+  data/training/pos-train.json --validation-output data/training/pos-validation.json
+  --test-output data/training/pos-test.json'
+deps:
+- md5: 6cfcad23cc4cf26a278b96764a5278ff
+  path: data/spacy_convert/pos.json
+md5: 3a51b38f3eefd0ab6c5a087efbb1b99b
+outs:
+- cache: true
+  md5: 98cc374683df527fda020570fff1a048
+  path: data/training/pos-train.json
+- cache: true
+  md5: eb10fad253261e912f5fcdc75b567745
+  path: data/training/pos-validation.json
+- cache: true
+  md5: c5fc35993b58ea8a15572b2c82ff87c3
+  path: data/training/pos-test.json
