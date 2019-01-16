@@ -106,15 +106,14 @@ for flexeme in structurized_data:
         best = Candidate(intersection_size=0, union_card=0, flexeme_subclass=None, index=None)
 
         # find the best match for current smallest subclass
-        for i in range(1, len(flexeme_data)):
-            r = flexeme_data[i]
-            pr_tags = intersection(smallest_subclass.tags, r.tags)
-            pr_card = smallest_subclass.card + r.card
-            intersection_size = len(pr_tags)
+        for i, match_candidate in enumerate(flexeme_data[1:]):
+            merge_tags = intersection(smallest_subclass.tags, match_candidate.tags)
+            merge_card = smallest_subclass.card + match_candidate.card
+            intersection_size = len(merge_tags)
             if intersection_size > best.intersection_size:
-                best = Candidate(intersection_size, pr_card, FlexemeSubclass(pr_tags, pr_card), i)
-            elif intersection_size == best.intersection_size and pr_card <= best.union_card:
-                best = Candidate(intersection_size, pr_card, FlexemeSubclass(pr_tags, pr_card), i)
+                best = Candidate(intersection_size, merge_card, FlexemeSubclass(merge_tags, merge_card), i)
+            elif intersection_size == best.intersection_size and merge_card <= best.union_card:
+                best = Candidate(intersection_size, merge_card, FlexemeSubclass(merge_tags, merge_card), i)
 
         if best.index is not None:
             # merge two matched subclasses, delete them and insert the result
