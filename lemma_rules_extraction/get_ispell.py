@@ -6,15 +6,16 @@ from shutil import copyfile, rmtree
 
 import settings
 
-SJP_ISPELL_ZIP = os.path.join(settings.LEMMATIZER_DATA_DIR, 'tmp_sjp_ispell.tar.bz2')
+SJP_ISPELL_ZIP = os.path.join(settings.LEMMATIZER_DATA_DIR, 'sjp_ispell.tar.bz2')
 
 
 def main(args):
     if args.date:
         date = args.date
     else:
-        td = datetime.date.today()
-        date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
+        # td = datetime.date.today()
+        # date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
+        date = '20190110'
     print(date)
     url = 'https://sjp.pl/slownik/ort/sjp-ispell-pl-{}-src.tar.bz2'.format(date)
     os.system('wget {} -O {} -q'.format(url, SJP_ISPELL_ZIP))
@@ -28,7 +29,7 @@ def main(args):
     copyfile(os.path.join(ispell_dir, 'polish.all'), settings.ISPELL_DICT)
 
     rmtree(ispell_dir)
-    os.remove(SJP_ISPELL_ZIP)
+    # os.remove(SJP_ISPELL_ZIP)
 
 
 if __name__ == '__main__':
