@@ -9,10 +9,16 @@ CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
 class Flexeme(NamedTuple):
     subclasses: list
 
+    def convert(self):
+        return [s.convert() for s in self.subclasses]
+
 
 class FlexemeSubclass(NamedTuple):
     tags: list
     card: int
+
+    def convert(self):
+        return {"tags": self.tags, "card": self.card}
 
 
 class Candidate(NamedTuple):
@@ -138,6 +144,9 @@ for flexeme in structurized_data:
         result[flexeme] += flexeme_data
     else:
         result[flexeme] = flexeme_data
+
+for flexeme in result:
+    result[flexeme] = [subclass.convert() for subclass in result[flexeme]]
 
 # a new tagset (to generate tagmap)
 with open('./data/pos.json', 'w') as file:
