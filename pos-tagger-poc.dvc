@@ -1,0 +1,15 @@
+cmd: ' python -m spacy train pl training/pos-tagger-poc data/training/pos-train.json
+  data/training/pos-validation.json -n 7 --vectors training/vectors-300 --no-parser
+  --no-entities'
+deps:
+- md5: 98cc374683df527fda020570fff1a048
+  path: data/training/pos-train.json
+- md5: eb10fad253261e912f5fcdc75b567745
+  path: data/training/pos-validation.json
+- md5: 6589713dc47d166698386e1a7945a865.dir
+  path: training/vectors-300
+md5: 3df87018465d14a9704aeb3c6426d889
+outs:
+- cache: true
+  md5: ae232a1a417644f9cc334e6dd6969429.dir
+  path: training/pos-tagger-poc
