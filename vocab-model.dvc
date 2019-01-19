@@ -1,0 +1,9 @@
+cmd: ' python -m spacy vocab pl training/vocab data/vocab.jsonl'
+deps:
+- md5: 33beba0ea79028356622fcca1ae17202
+  path: data/vocab.jsonl
+md5: 31fa8b5f877df03934112c11dc1d11c2
+outs:
+- cache: true
+  md5: 3746769080438c54f553c4075f272f06.dir
+  path: training/vocab
