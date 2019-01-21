@@ -196,6 +196,6 @@ flags_desc = {
         'POS': ['adv'],
     },
     'G': {
-        'POS': [''],
+        'POS': ['part', 'verb'],
     },
 }

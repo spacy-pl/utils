@@ -10,15 +10,14 @@ SJP_ISPELL_ZIP = os.path.join(settings.LEMMATIZER_DATA_DIR, 'sjp_ispell.tar.bz2'
 
 
 def main(args):
-    if args.date:
-        date = args.date
-    else:
-        # td = datetime.date.today()
-        # date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
-        date = '20190110'
-    print(date)
-    url = 'https://sjp.pl/slownik/ort/sjp-ispell-pl-{}-src.tar.bz2'.format(date)
-    os.system('wget {} -O {} -q'.format(url, SJP_ISPELL_ZIP))
+    td = datetime.date.today()
+    result = 1
+    while result != 0:
+        date = '{}{:02d}{:02d}'.format(td.year, td.month, td.day)
+        url = 'https://sjp.pl/slownik/ort/sjp-ispell-pl-{}-src.tar.bz2'.format(date)
+        result = os.system('wget {} -O {} -q'.format(url, SJP_ISPELL_ZIP))
+        td = td - datetime.timedelta(days=1)
+    print('Downloaded from date {}'.format(date))
 
     tar = tarfile.open(SJP_ISPELL_ZIP, "r:bz2")
     tar.extractall(settings.LEMMATIZER_DATA_DIR)
@@ -29,11 +28,9 @@ def main(args):
     copyfile(os.path.join(ispell_dir, 'polish.all'), settings.ISPELL_DICT)
 
     rmtree(ispell_dir)
-    # os.remove(SJP_ISPELL_ZIP)
-
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Download ispell rules')
-    parser.add_argument('--date', help='Date in format YYYYMMDD')
+    parser = argparse.ArgumentParser(
+        description='Download and unpack the newest sjp rules')
     args = parser.parse_args()
     main(args)
