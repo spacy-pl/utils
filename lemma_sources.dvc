@@ -1,11 +1,13 @@
-cmd: python ./lemma_rules_extraction/prepare_sources.py
+cmd: ' python ./lemma_rules_extraction/prepare_sources.py'
 deps:
 - md5: c53b055826199aad22c3e590e23b5cd5
   path: data/lemmatizer_data/rules.json
 - md5: 36ba849692eb700b69ca55b949eb4f80
   path: data/lemmatizer_data/words.json
-md5: ddd7cbfa1d071adb0536a5536f6dd3ec
+- md5: 450cc8587d443fa5658a4888c7cdd95b
+  path: lemma_rules_extraction/flag_to_tag.py
+md5: 87b39579c4b04bf2cd2e67ea829c8f7a
 outs:
 - cache: true
-  md5: acb2ed6408309431f4e81a496f11ef27.dir
+  md5: debdddec406043c10d320b4763a37583.dir
   path: data/lemmatizer_data/lemma_sources
