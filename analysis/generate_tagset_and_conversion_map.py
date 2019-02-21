@@ -125,6 +125,16 @@ for flexeme in structurized_data:
             # merge two matched subclasses, delete them and insert the result
             key_1, key_2 = get_function_keys(flexeme, flexeme_data, best)
             value = get_function_value(flexeme, best)
+
+            # bug fix: if k1 -> k2 and k2->k3, then k1->k3
+            keys_to_update = set()
+            for k, v in conversion_function.items():
+                if v == key_1 or v == key_2:
+                    keys_to_update.add(k)
+
+            for k in keys_to_update:
+                conversion_function[k] = value
+
             conversion_function[key_1] = value
             conversion_function[key_2] = value
 
