@@ -36,7 +36,7 @@ def main(args):
 
 if __name__ == "__main__":
     TAGSET_FILEPATH = './data/tagmap_data/transitional_tagset.json'
-    TAGMAP_FILEPATH = './data/tagmap_data/tagmap1.py'
+    TAGMAP_FILEPATH = './data/tagmap_data/tagmap.py'
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--tagset_filepath', type=str, default=TAGSET_FILEPATH)
