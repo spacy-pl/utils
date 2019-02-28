@@ -5,4 +5,5 @@ md5: 1e4d3ae881533e31da6bd6c7872e4c34
 outs:
 - cache: true
   md5: 9de3eff1a7ccccc2ee4777c5fbf766fa
+  metric: false
   path: data/dependency_trees/UD_Polish_LFG.zip

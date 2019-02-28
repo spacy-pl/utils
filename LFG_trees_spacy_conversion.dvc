@@ -1,12 +1,13 @@
-cmd: spacy convert data/dependency_trees/UD_Polish-LFG-master/pl_lfg-ud-train.conllu
+cmd: mkdir data/dependency_trees/LFG_spacy_converted ; spacy convert data/dependency_trees/UD_Polish-LFG-master/pl_lfg-ud-train.conllu
   data/dependency_trees/LFG_spacy_converted/ ; spacy convert data/dependency_trees/UD_Polish-LFG-master/pl_lfg-ud-dev.conllu
   data/dependency_trees/LFG_spacy_converted/ ; spacy convert data/dependency_trees/UD_Polish-LFG-master/pl_lfg-ud-test.conllu
   data/dependency_trees/LFG_spacy_converted
 deps:
 - md5: e446672c5a4b34e7bbb3b77fa7ebff04.dir
   path: data/dependency_trees/UD_Polish-LFG-master
-md5: 9c2d919c5fe115f1c6a9fd3dcddf0bb5
+md5: 10a68e41de0ccbfb9285890997d471e7
 outs:
 - cache: true
-  md5: e05cdaf4e2d5e3d094203f376260dc7c.dir
+  md5: c83bae27154249b29141ab05b7e3ff25.dir
+  metric: false
   path: data/dependency_trees/LFG_spacy_converted
