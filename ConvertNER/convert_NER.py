@@ -4,22 +4,10 @@ import spacy
 import json
 import os
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 path_prefix = './'
 corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
 output_path = 'data/NER/'
 output = 'NER.json'
-=======
-path_prefix = '../'
-corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
->>>>>>> Working-ish solution
-=======
-path_prefix = './'
-corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
-output_path = 'data/NER/'
-output = 'NER.json'
->>>>>>> Change the script to work from repository's root folder
 
 morphosyntax_xml = 'ann_morphosyntax.xml'
 groups_xml = 'ann_groups.xml'
@@ -219,6 +207,15 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
 
     doc_id += 1
     corpus += [doc_json]
+<<<<<<< HEAD
     
+=======
+
+
+<<<<<<< HEAD
+>>>>>>> Working-ish solution
 with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
+=======
+with open('result.json', 'w+') as f:
+>>>>>>> Working-ish solution
     json.dump(corpus, f)
