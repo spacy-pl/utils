@@ -1,9 +1,12 @@
-cmd: python ./lemma_rules_extraction/get_ispell.py
-md5: 9f252c1c87ef59051f2f5b3f44aa73ca
+cmd: ' python ./lemma_rules_extraction/get_ispell.py'
+md5: 4840f7f9f22b0e6d83c0483426437f5e
 outs:
 - cache: true
-  md5: b5b285225a4bcf7d6d040b791bde0e0c
+  md5: 922143b067563fa82b9c0b88030d6931
   path: data/lemmatizer_data/polish.dic
 - cache: true
   md5: b281dd4f3bcbce480d1d9d64a8c34305
   path: data/lemmatizer_data/polish.aff
+- cache: true
+  md5: 765f6b1b701905a2a10c65394af88de8
+  path: data/lemmatizer_data/sjp_ispell.tar.bz2
