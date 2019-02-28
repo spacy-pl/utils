@@ -4,10 +4,15 @@ import spacy
 import json
 import os
 
+<<<<<<< HEAD
 path_prefix = './'
 corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
 output_path = 'data/NER/'
 output = 'NER.json'
+=======
+path_prefix = '../'
+corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
+>>>>>>> Working-ish solution
 
 morphosyntax_xml = 'ann_morphosyntax.xml'
 groups_xml = 'ann_groups.xml'
