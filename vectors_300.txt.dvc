@@ -2,10 +2,11 @@ cmd: ' python vectors/train_vectors_300.py'
 deps:
 - md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
   path: data/NKJP_1.2_nltk
-- md5: 8f8fcf4117b932744a30565b5db09cc2
+- md5: 1dcf1e301974b9bdf3cbbc2d1a76cfa9
   path: vectors/train_vectors_300.py
-md5: 3f7f43e6a7f1267227541f7b6f9a901e
+md5: 9150328cc09f1a2ed22cc20b59686a2a
 outs:
 - cache: true
-  md5: bc90ec7ebfe78c8ccc55023c3925a772
+  md5: dbba9732dbb1b9c7080d5f8b922fb95b
+  metric: false
   path: data/vectors_300.txt
