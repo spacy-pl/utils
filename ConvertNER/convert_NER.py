@@ -208,6 +208,5 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     doc_id += 1
     corpus += [doc_json]
 
-
 with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
