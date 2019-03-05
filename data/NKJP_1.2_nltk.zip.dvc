@@ -2,4 +2,5 @@ md5: 63c01c57d2dade2a8b8cd24f50a6dd14
 outs:
 - cache: true
   md5: 1d4c026ae9a8911a6e38631b8d2c465e
+  metric: false
   path: NKJP_1.2_nltk.zip

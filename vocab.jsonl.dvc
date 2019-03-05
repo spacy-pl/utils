@@ -8,4 +8,5 @@ md5: 9de13e66991a9c5bcc7fe31b8b6a010e
 outs:
 - cache: true
   md5: 33beba0ea79028356622fcca1ae17202
+  metric: false
   path: data/vocab.jsonl

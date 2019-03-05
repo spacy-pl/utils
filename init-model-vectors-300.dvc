@@ -1,9 +1,0 @@
-cmd: ' python -m spacy init-model pl training/vectors-300 --vectors-loc data/vectors_300.txt'
-deps:
-- md5: f41d862a92b86f50095d6c54ef20ed23
-  path: data/vectors_300.txt
-md5: 5d1d16d26434e6a61a64c373882aece9
-outs:
-- cache: true
-  md5: 6589713dc47d166698386e1a7945a865.dir
-  path: training/vectors-300
