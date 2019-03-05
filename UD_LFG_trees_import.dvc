@@ -1,0 +1,9 @@
+deps:
+- etag: '"08a336f59eb553825c06449ea4d6af92aa3dd3e7"'
+  path: https://github.com/UniversalDependencies/UD_Polish-LFG/archive/master.zip
+md5: 1e4d3ae881533e31da6bd6c7872e4c34
+outs:
+- cache: true
+  md5: 9de3eff1a7ccccc2ee4777c5fbf766fa
+  metric: false
+  path: data/dependency_trees/UD_Polish_LFG.zip
