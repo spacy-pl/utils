@@ -75,13 +75,13 @@ def main(args):
 
     with open(args.rules, "r") as f:
         rules = json.load(f)
-    if len(set(rules) ^ set(flag_desc)) > 0:
+    if len(set(rules) ^ set(flags_desc)) > 0:
         print("WARNING: Mapping is inacurate. Please update flag_to_tag.py")
     create_rule_files(args, rules, mapping)
 
     with open(args.words, "r") as f:
         words = json.load(f)
-    if len(set(words) ^ set(flag_desc)) > 0:
+    if len(set(words) ^ set(flags_desc)) > 0:
         print("WARNING: Mapping is inacurate. Please update flag_to_tag.py")
     create_word_files(args, words, mapping)
 
