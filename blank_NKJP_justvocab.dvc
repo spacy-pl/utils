@@ -1,0 +1,10 @@
+cmd: ' python -m spacy vocab pl models/blank_NKJP_justvocab data/vocab.jsonl'
+deps:
+- md5: 33beba0ea79028356622fcca1ae17202
+  path: data/vocab.jsonl
+md5: 83578752aeaec20578fbcd0c9e9547f2
+outs:
+- cache: true
+  md5: f1849fe45351e054c62ccfe92333a4c8.dir
+  metric: false
+  path: models/blank_NKJP_justvocab

@@ -6,4 +6,5 @@ md5: 40b5dd3bd77082fd378fbd84c0d5928e
 outs:
 - cache: true
   md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  metric: false
   path: data/NKJP_1.2_nltk
