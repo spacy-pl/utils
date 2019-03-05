@@ -8,4 +8,5 @@ md5: 5e39d78f7d29fab5dbfef6995ad443eb
 outs:
 - cache: true
   md5: 6cfcad23cc4cf26a278b96764a5278ff
+  metric: false
   path: data/spacy_convert/pos.json
