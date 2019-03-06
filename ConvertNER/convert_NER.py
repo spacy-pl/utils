@@ -4,8 +4,10 @@ import spacy
 import json
 import os
 
-path_prefix = '../'
+path_prefix = './'
 corpus_path = 'data/NKJP-PodkorpusMilionowy-1.2/'
+output_path = 'data/NER/'
+output = 'NER.json'
 
 morphosyntax_xml = 'ann_morphosyntax.xml'
 groups_xml = 'ann_groups.xml'
@@ -207,5 +209,5 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     corpus += [doc_json]
 
 
-with open('result.json', 'w+') as f:
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
