@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ET
-from spacy.lang.pl import Polish
 from spacy.gold import biluo_tags_from_offsets
 import spacy
 import json
@@ -121,7 +120,7 @@ def required_files_exist(dir):
 
     return True
 
-nlp = Polish()
+nlp = spacy.load('en_core_web_sm')
 doc_id = 0
 corpus = []
 
@@ -139,8 +138,8 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     if not os.path.isdir((os.path.join(path_prefix,corpus_path,current_folder))):
         continue
 
-    # we skip the docs that don't have the required annotations (certain .xml files)
     if not required_files_exist(current_folder):
+        # doc_id +=1 ?
         continue
 
     tree_morphosyntax = ET.parse(os.path.join(path_prefix,corpus_path,current_folder,morphosyntax_xml))
@@ -199,7 +198,7 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
         biluo_tags = biluo_tags_from_offsets(doc, entities)
 
         sentences = set_biluo_tags(sentences, biluo_tags)
-        paragraph_json['sentences'] = [{'tokens': tok, 'brackets': []} for tok in sentences]
+        paragraph_json['sentences'] = sentences
         paragraph_json['raw'] = pg_text
         paragraphs += [paragraph_json]
 
@@ -209,9 +208,5 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     doc_id += 1
     corpus += [doc_json]
 
-out_path = os.path.expanduser(os.path.join(path_prefix, output_path))
-if not os.path.exists(out_path):
-    os.makedirs(out_path)
-
-with open(os.path.join(out_path, output), 'w+') as f:
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
