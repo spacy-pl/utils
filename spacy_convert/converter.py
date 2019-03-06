@@ -45,7 +45,10 @@ def make_sentence(tokens: list, starting_id:int, conversion_map: dict):#, tags: 
     for token in tokens:
         tag = token[1]
         if conversion_map:
-            tag = conversion_map[tag]
+            if tag in conversion_map:
+                tag = conversion_map[tag]
+            else:
+                print("Warning, tag {} not in conversion map".format(tag))
         converted_token=make_token(id, token[0], tag)
         converted_tokens.append(converted_token)
         id+=1
@@ -68,7 +71,7 @@ def make_token(id: int, orth: str, tag: str):
 
 @click.command(help="Convert nkjp to spacy format")
 @click.option('--output-path', type=str, default="./data/spacy_convert/pos.json")
-@click.option('--conversion_map_filepath')
+@click.option('--conversion-map-filepath')
 def convert(
         output_path,
         conversion_map_filepath,
