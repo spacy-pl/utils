@@ -23,7 +23,7 @@ When something in pipeline changed and you want to run all steps again, use
 with `<step_name>` to which you want to rerun pipeline.
 
 ### Synchronization
-First, [set up remote](https://paper.dropbox.com/doc/Access-to-s3--AQ5lLyOsM_xbtNZLgtwbna1LAg-kp68Pmahp3XIIyet2arA5).
+First, [set up remote](https://paper.dropbox.com/doc/Set-up-Google-Cloud-DVC-remote--AY1vQtc7qDYzGviJBmwVw6AQAg-89O3Eq4g6EArSJcfQYd4l).
 
 
 Synchronization always works with in connection with current branch and commit.
