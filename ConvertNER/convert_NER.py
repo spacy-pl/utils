@@ -213,5 +213,5 @@ out_path = os.path.expanduser(os.path.join(path_prefix, output_path))
 if not os.path.exists(out_path):
     os.makedirs(out_path)
 
-with open(os.path.join(out_path, output), 'w+') as f:
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
