@@ -1,10 +1,12 @@
 import os
-import nltk
 import json
 import argparse
 
 from typing import NamedTuple
 from collections import defaultdict
+
+import click
+import nltk
 
 CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
 
@@ -102,7 +104,14 @@ def prepare_structurized_data():
     return structurized_data
 
 
-def main(args):
+@click.option("--tagset-filepath", type=str, default="./data/tagmap_data/transitional_tagset.json")
+@click.option("--conversion-map-filepath", type=str, default="./data/tagmap_data/nkjp2us.json")
+@click.option("--min_cardinality", type=int, default=100)
+def generate_tagset_and_conversion(
+        tagset_filepath,
+        conversion_map_filepath,
+        min_cardinality,
+):
     structurized_data = prepare_structurized_data()
 
     conversion_function = {}
@@ -114,7 +123,7 @@ def main(args):
 
         smallest_subclass = flexeme_data[0]
         fin = []
-        while smallest_subclass.card < args.min_cardinality and len(flexeme_data) > 0:
+        while smallest_subclass.card < min_cardinality and len(flexeme_data) > 0:
             smallest_subclass = flexeme_data[0]
             best = Candidate(intersection_size=0, union_card=0, flexeme_subclass=None, index=None)
 
@@ -166,22 +175,13 @@ def main(args):
         result[flexeme] = [subclass.convert() for subclass in result[flexeme]]
 
     # a new tagset (to generate tagmap)
-    with open(args.tagset_filepath, 'w') as file:
+    with open(tagset_filepath, 'w') as file:
         file.write(json.dumps(result, indent=4, sort_keys=True))
 
     # a mapping from original NKJP tagset to our smaller tagset (to convert nkjp)
-    with open(args.conversion_map_filepath, 'w') as file:
+    with open(conversion_map_filepath, 'w') as file:
         file.write(json.dumps(conversion_function, indent=4, sort_keys=True))
 
 
 if __name__ == "__main__":
-    TAGSET_FILEPATH = './data/tagmap_data/transitional_tagset.json'
-    CONVERSION_MAP_FILEPATH = './data/tagmap_data/nkjp2us.json'
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--tagset_filepath', type=str, default=TAGSET_FILEPATH)
-    parser.add_argument('--conversion_map_filepath', type=str, default=CONVERSION_MAP_FILEPATH)
-    parser.add_argument('-c', '--min_cardinality', type=int, default=100)
-    args = parser.parse_args()
-
-    main(args)
+    main()
