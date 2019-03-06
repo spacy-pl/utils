@@ -209,13 +209,5 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     doc_id += 1
     corpus += [doc_json]
 
-out_path = os.path.expanduser(os.path.join(path_prefix, output_path))
-if not os.path.exists(out_path):
-    os.makedirs(out_path)
-
-<<<<<<< HEAD
 with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
-=======
-with open('result.json', 'w+') as f:
->>>>>>> Working-ish solution
     json.dump(corpus, f)
