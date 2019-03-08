@@ -71,7 +71,7 @@ def make_token(id: int, orth: str, tag: str):
 
 @click.command(help="Convert nkjp to spacy format")
 @click.option('--output-path', type=str, default="./data/spacy_convert/pos.json")
-@click.option('--conversion-map-filepath')
+@click.option('--conversion-map-filepath', type=str)
 def convert(
         output_path,
         conversion_map_filepath,
