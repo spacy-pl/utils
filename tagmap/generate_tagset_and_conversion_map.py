@@ -1,12 +1,13 @@
 import os
 import json
-import argparse
 
 from typing import NamedTuple
 from collections import defaultdict
 
 import click
 import nltk
+
+from tqdm import tqdm
 
 CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
 
@@ -33,8 +34,22 @@ class Candidate(NamedTuple):
     index: int
 
 
-def intersection(lst1, lst2):
-    return list(set(lst1) & set(lst2))
+def get_longes_common_subchain(lst1, lst2):
+    longest_substr = []
+    if lst1 and lst2:
+        opt1 = get_longes_common_subchain(lst1[1:], lst2)
+        opt2 = get_longes_common_subchain(lst1, lst2[1:])
+        opt3 = get_longes_common_subchain(lst1[1:], lst2[1:])
+        if lst1[0] == lst2[0]:
+            opt3.insert(0, lst1[0])
+
+        max_l = max([len(l) for l in [opt1, opt2, opt3]])
+        for l in [opt1, opt2, opt3]:
+            if len(l) == max_l:
+                longest_substr = l
+                break
+
+    return longest_substr
 
 
 def concat(A):
@@ -104,9 +119,10 @@ def prepare_structurized_data():
     return structurized_data
 
 
+@click.command(help='Generate tagset and nkjp2us mapping')
 @click.option("--tagset-filepath", type=str, default="./data/tagmap_data/transitional_tagset.json")
 @click.option("--conversion-map-filepath", type=str, default="./data/tagmap_data/nkjp2us.json")
-@click.option("--min_cardinality", type=int, default=100)
+@click.option("--min-cardinality", type=int, default=100)
 def generate_tagset_and_conversion(
         tagset_filepath,
         conversion_map_filepath,
@@ -114,10 +130,10 @@ def generate_tagset_and_conversion(
 ):
     structurized_data = prepare_structurized_data()
 
-    conversion_function = {}
+    conversion_function = {t + ':' + concat(d.tags): t + ':' + concat(d.tags) for t, l in structurized_data.items() for d in l}
     result = {}
 
-    for flexeme in structurized_data:
+    for flexeme in tqdm(structurized_data):
         flexeme_data = structurized_data[flexeme].copy()
         flexeme_data = sorted(flexeme_data, key=lambda x: x.card)
 
@@ -129,7 +145,7 @@ def generate_tagset_and_conversion(
 
             # find the best match for current smallest subclass
             for i, match_candidate in enumerate(flexeme_data[1:]):
-                merge_tags = intersection(smallest_subclass.tags, match_candidate.tags)
+                merge_tags = get_longes_common_subchain(smallest_subclass.tags, match_candidate.tags)
                 merge_card = smallest_subclass.card + match_candidate.card
                 intersection_size = len(merge_tags)
                 if intersection_size > best.intersection_size:
@@ -184,4 +200,4 @@ def generate_tagset_and_conversion(
 
 
 if __name__ == "__main__":
-    main()
+    generate_tagset_and_conversion()
