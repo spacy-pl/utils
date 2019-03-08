@@ -130,7 +130,9 @@ def generate_tagset_and_conversion(
 ):
     structurized_data = prepare_structurized_data()
 
-    conversion_function = {t + ':' + concat(d.tags): t + ':' + concat(d.tags) for t, l in structurized_data.items() for d in l}
+    conversion_function = {t + ':' + concat(d.tags): t + ':' + concat(d.tags) for t, l in structurized_data.items()
+                           for d in l if d.tags}
+    conversion_function.update({t: t for t in structurized_data})
     result = {}
 
     for flexeme in tqdm(structurized_data):
