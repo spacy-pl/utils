@@ -1,0 +1,16 @@
+cmd: python -m spacy train pl models/pos_NKJP-100_word2vec data/training/pos-100/pos-train.json
+  data/training/pos-100/pos-validation.json -n 9 --vectors models/blank_NKJP_word2vec
+  --no-parser --no-entities
+deps:
+- md5: ec1c40cf607177f143f26458ac2656a6
+  path: data/training/pos-100/pos-train.json
+- md5: 5756df171c0277001cfb2c7ca99d89e7
+  path: data/training/pos-100/pos-validation.json
+- md5: 330ef45fe5e432f8c3e025f455a61cd5.dir
+  path: models/blank_NKJP_word2vec
+md5: df2e5d645618a7eacd1a194b2ea180a4
+outs:
+- cache: true
+  md5: 566c224f3d98e9e6310a661386300e14.dir
+  metric: false
+  path: models/pos_NKJP-100_word2vec
