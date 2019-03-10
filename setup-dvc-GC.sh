@@ -22,7 +22,7 @@ if [ ! -f $key_name ]
         fi
     fi
 fi
-key_dir="$key_dir$key_name"
+key_dir="$key_dir/$key_name"
 
 echo "GOOGLE_APPLICATION_CREDENTIALS=\"$key_dir\"" >> ~/.bashrc
 source ~/.bashrc
