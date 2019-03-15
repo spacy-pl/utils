@@ -1,0 +1,7 @@
+md5: a30cbe0a79d8eb5dbe0fd85f9734b905
+outs:
+- cache: true
+  md5: 630ee9a7fb7070ced69932458557aff6
+  metric: false
+  path: data/vectors/cc.pl.300.vec.gz
+wdir: ../..
