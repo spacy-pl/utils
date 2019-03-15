@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import pprint
 import re
 
 import settings
@@ -56,10 +57,12 @@ def create_rule_files(args, rules, mapping):
 def create_word_file(args, words, key):
     filename = "_{}.py".format(key)
     filepath = os.path.join(args.output_dir, filename)
+    formated_words = pprint.pformat(' '.join(words))
+    formated_words = formated_words.replace("\'", "").replace('(', "").replace(')', '').replace("\n ", "\n")
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(HEADER)
         f.write("{} = set(\"\"\"\n".format(key.upper()))
-        f.write('\n'.join(words) + '\n')
+        f.write(formated_words + '\n')
         f.write("\"\"\".split())\n")
 
 
