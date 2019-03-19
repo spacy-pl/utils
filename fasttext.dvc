@@ -1,0 +1,15 @@
+cmd: python vectors/get_fasttext.py
+deps:
+- md5: 8cf7b78bfa20b07589e110f58a370e47
+  path: data/vectors/cc.pl.300.vec
+md5: 63bcf18b8d9d55662c97ab7b662cb692
+outs:
+- cache: true
+  md5: bcc32bc715d37066add203fd533dd85c
+  metric: false
+  path: data/vectors/fasttext.txt
+- cache: true
+  md5: d77233da7640f4204f093802cae5ed87.dir
+  metric: false
+  path: data/vectors/fasttext_spacy
+wdir: .
