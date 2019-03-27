@@ -1,0 +1,13 @@
+cmd: python spacy_convert/converter.py --output-path data/spacy_convert/pos-100.json
+  --conversion-map-filepath data/tagmap_data/nkjp2us.json
+deps:
+- md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  path: data/NKJP_1.2_nltk
+- md5: 4ab25ee56473bd725b9de9240cc68700
+  path: data/tagmap_data/nkjp2us.json
+md5: 737b4e0d42cd256644e1a25ab3b96e66
+outs:
+- cache: true
+  md5: 120e3e14b71821dd20e5462ecd7dbeca
+  metric: false
+  path: data/spacy_convert/pos-100.json
