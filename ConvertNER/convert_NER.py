@@ -198,7 +198,7 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
         biluo_tags = biluo_tags_from_offsets(doc, entities)
 
         sentences = set_biluo_tags(sentences, biluo_tags)
-        paragraph_json['sentences'] = sentences
+        paragraph_json['sentences'] = [{'tokens': tok, 'brackets': []} for tok in sentences]
         paragraph_json['raw'] = pg_text
         paragraphs += [paragraph_json]
 
