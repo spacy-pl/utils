@@ -4,7 +4,7 @@ from spacy.gold import biluo_tags_from_offsets
 import json
 import os
 
-path_prefix = '../'
+path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
 output_path = 'data/NER/'
 output = 'NER_wroc.json'
@@ -185,7 +185,7 @@ def pick_tags(tokens):
         return tokens
     if len(tokens) == 1:
         if tokens[0].is_NE():
-            tokens[0].attribs = [token[0].attribs[0]]
+            tokens[0].attribs = [tokens[0].attribs[0]]
         return tokens
 
     t0 = tokens[0]
@@ -263,19 +263,40 @@ def convert_to_biluo(tokens):
 
     return out
 
+def get_text(tokens):
+    raw = ""
+    for token in tokens:
+        raw += token.orth + " "
+
+    _punct = r'… …… , : ; \! \? ¿ ؟ ¡ \( \) \[ \] \{ \} < > _ # \* & 。 ？ ！ ， 、 ； ： ～ · । ، ؛ ٪ . ! ?'
+    _quotes = r'\' \'\' " ” “ `` ` ‘ ´ ‘‘ ’’ ‚ , „ » « 「 」 『 』 （ ） 〔 〕 【 】 《 》 〈 〉'
+    _hyphens = '- – — -- --- —— ~'
+    _brackets_pref =  ") ] }"
+    _brackets_post = "( [ {"
+
+    interp_pref = _punct.split(" ") + _quotes.split(" ") + _hyphens.split(" ") + _brackets_pref.split(" ")
+    interp_post = _brackets_post.split(" ")
+    raw = raw[:-1]
+    for char in interp_pref:
+        raw = raw.replace(" "+char, char)
+
+    for char in interp_post:
+        raw = raw.replace(char+" ", char)
+
+    return raw
 
 
-
-
-
-print(get_subdirs(os.path.join(path_prefix, corpus_path)))
 
 all_labels = set()
+docs = []
+doc_idx = 0
 for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
     for file in os.listdir(os.path.join(path_prefix, corpus_path, subfolder)):
-        doc_idx = 0
         if not file.endswith("rel.xml") and not file.endswith(".ini"):
+            doc_json = {}
+            sentences = []
             token_idx = 0
+            raw = ""
             tree = ET.parse(os.path.join(path_prefix, corpus_path, subfolder, file))
             root = tree.getroot()
             sents = root.iter("sentence")
@@ -295,17 +316,27 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                 sent = {'tokens': [{
                     'orth': t.orth,
                     'id': t.id,
-                    'ner': t.get_NE()} # change to t.get_NE()
+                    'ner': t.get_NE()}
                     for t in tokens
                 ], 'brackets': []
                 }
-                print(sent)
-        doc_idx +=1
+                # print(sent)
+                # print(get_text(tokens))
 
-    break
+                text = get_text(tokens)
+                sentences += [sent]
+                raw += "\n"+text
 
-print(all_labels)
+            doc_json = {
+                'id': doc_idx,
+                'paragraphs': [{'sentences': sentences}]
+            }
+            corpus += [doc_json]
+            doc_idx +=1
 
+# print(corpus)
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
+    json.dump(corpus, f)
 # for f in os.listdir(os.path.join(path_prefix, corpus_path)):
 #     doc_json = {}
 #     current_folder = f
@@ -383,5 +414,3 @@ print(all_labels)
 #     doc_id += 1
 #     corpus += [doc_json]
 #
-# with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
-#     json.dump(corpus, f)

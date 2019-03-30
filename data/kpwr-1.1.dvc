@@ -1,0 +1,7 @@
+md5: 58cbc0bd05749d04e4b6a5e4c9d78c01
+outs:
+- cache: true
+  md5: d84971d4b907e5efc5d9320de6691027.dir
+  metric: false
+  path: kpwr-1.1
+wdir: .
