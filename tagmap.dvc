@@ -1,10 +1,11 @@
 cmd: python3 tagmap/tagmap_gen.py
 deps:
-- md5: 994a152e9192ffbea7e160f55cf346b0
+- md5: 57c170a3d168e4af2e8ca52d2af12424
   path: data/tagmap_data/transitional_tagset.json
-md5: a0d93383dc306d0d3891510e003c6f5e
+md5: 9e5646cefc2cbe1a84a423864648af61
 outs:
 - cache: true
-  md5: 92140beb4f2b2d195fe15ee9c7c03df6
+  md5: d171f7cf5bfb5b7209b9f5a4096a8789
   metric: false
   path: data/tagmap_data/tagmap.py
+wdir: .
