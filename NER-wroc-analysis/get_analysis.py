@@ -357,8 +357,9 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
             corpus += [doc_json]
             doc_idx +=1
 
-with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
-    json.dump(corpus, f)
+# print(corpus)
+# with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
+#     json.dump(corpus, f)
 
-# with open(os.path.expanduser(os.path.join(path_prefix, output_path, "analysis.json")), 'w+') as f:
-#     json.dump(all_labels.contents, f)
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, "analysis.json")), 'w+') as f:
+    json.dump(all_labels.contents, f)
