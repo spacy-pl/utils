@@ -34,4 +34,17 @@ Get all tracked arfitfacts from remote.
 ### Print pipeline
 ```dvc pipeline show -c --ascii```
 
+### Releasing models
+To package model please run `python deployment/combine_and_package.py` with proper
+arguments. For example
 
+```
+python deployment/combine_and_package.py \
+ --pos-path models/pos_NKJP_word2vec/model-fial/ \
+ --tree-path models/trees-pos_LFG_word2vec/model-final/ \
+ --ner-path models/ner_nkjp_word2vec/model-final/ \
+ --output-path models/release \
+ --blank-vectors-path models/blank_NKJP_word2vec/
+```
+
+fill poll presented by script with usefull infomations 
