@@ -227,10 +227,10 @@ def convert_to_biluo(tokens):
             if token.is_NE():
                 if tokens[i+1].is_NE() and token.get_NE() == tokens[i+1].get_NE():
                     # inner NE
-                    out += [Token(token.orth, ["I_"+token.get_NE()], token.id)]
+                    out += [Token(token.orth, ["I-"+token.get_NE()], token.id)]
                 else:
                     # last NE
-                    out += [Token(token.orth, ["L_"+token.get_NE()], token.id)]
+                    out += [Token(token.orth, ["L-"+token.get_NE()], token.id)]
                     in_ne = False
             else:
                 # we shouldn't ever get here
@@ -241,11 +241,11 @@ def convert_to_biluo(tokens):
                 # new NE
                 if tokens[i+1].is_NE() and token.get_NE() == tokens[i+1].get_NE():
                     # beginning NE
-                    out += [Token(token.orth, ["B_"+token.get_NE()], token.id)]
+                    out += [Token(token.orth, ["B-"+token.get_NE()], token.id)]
                     in_ne = True
                 else:
                     # unit NE
-                    out += [Token(token.orth, ["U_"+token.get_NE()], token.id)]
+                    out += [Token(token.orth, ["U-"+token.get_NE()], token.id)]
                     in_ne = False
             else:
                 # outside of NE
@@ -254,10 +254,10 @@ def convert_to_biluo(tokens):
     # process last token
     token = tokens[-1]
     if in_ne:
-        out += [Token(token.orth, ["L_" + token.get_NE()], token.id)]
+        out += [Token(token.orth, ["L-" + token.get_NE()], token.id)]
     else:
         if token.is_NE():
-            out += [Token(token.orth, ["U_" + token.get_NE()], token.id)]
+            out += [Token(token.orth, ["U-" + token.get_NE()], token.id)]
         else:
             out += [Token(token.orth, ["O"], token.id)]
 
