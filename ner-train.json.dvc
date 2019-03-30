@@ -1,0 +1,20 @@
+cmd: python training/split-data.py --input-file data/NER/NER.json --train-output data/training/NER/ner-train.json
+  --validation-output data/training/NER/ner-validation.json --test-output data/training/NER/ner-test.json
+deps:
+- md5: 26eda26aa4dfe010f02abd903236319f
+  path: data/NER/NER.json
+md5: b2b39f757474106d83d09a68acd530e4
+outs:
+- cache: true
+  md5: 5f66f32e9687176fe6fe73b5dabe3ccc
+  metric: false
+  path: data/training/NER/ner-train.json
+- cache: true
+  md5: 8fb84b9a2c25d2b003027303456bafed
+  metric: false
+  path: data/training/NER/ner-test.json
+- cache: true
+  md5: f936ba60e47a04063ce21d898cff7bda
+  metric: false
+  path: data/training/NER/ner-validation.json
+wdir: .
