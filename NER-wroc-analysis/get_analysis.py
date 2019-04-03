@@ -204,7 +204,7 @@ def process_token(tok):
     attribs = []
     orth = tok.find("orth").text
     for ann in tok.iter("ann"):
-        if ann.attrib['chan'].endswith("nam") and ann.text == "1":
+        if ann.attrib['chan'].endswith("nam") and ann.text != "0":
             attribs += [ann.attrib['chan']]
 
     return Token(orth, attribs, -1)
@@ -233,6 +233,14 @@ def get_all_labels_with_cardinalities(tokens):
             labels.count(attr)
 
     return labels
+
+def  tag1_implies_tag2(tokens, tag1, tag2):
+    for token in tokens:
+        if tag1 in token.attribs and (not (tag2 in token.attribs)):
+            print(token.attribs)
+            return False
+
+    return True
 
 
 def pick_tags(tokens):
@@ -371,6 +379,11 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                 all_labels.merge(get_all_labels_with_cardinalities(tokens))
                 for tok in tokens:
                     cooccurences.merge(tok.get_cooccurences())
+                if not tag1_implies_tag2(tokens, "person_first_nam", "person_nam"):
+                    print("person_first_nam isn't always a person_nam" + " " + subfolder + " " + file)
+                if not tag1_implies_tag2(tokens, "person_last_nam", "person_nam"):
+                    print("person_last_nam isn't always a person_nam" + " " + subfolder + " " + file)
+
                 tokens = pick_tags(tokens)
                 tokens = convert_to_biluo(tokens)
 
@@ -398,7 +411,7 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
 # with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
 #     json.dump(corpus, f)
 
-print(cooccurences.contents)
+# print(cooccurences.contents)
 
 with open(os.path.expanduser(os.path.join(path_prefix, output_path, "analysis.json")), 'w+') as f:
     json.dump(all_labels.contents, f)
