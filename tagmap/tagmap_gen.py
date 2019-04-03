@@ -4,7 +4,9 @@ import argparse
 
 from tagmap_draw import fleksem_to_pos
 
-PREFIX = """from ..symbols import *
+PREFIX = """# coding: utf8
+from future import unicode_literals
+from ..symbols import *
 TAG_MAP = {
 """
 
@@ -19,8 +21,7 @@ def main(args):
             tagmap_list += [
                 "\"" + ':'.join([k]+v1['tags']) +
                 "\": {POS: " + fleksem_to_pos[k] +
-                ", 'features': '" + ':'.join(v1['tags'])
-                + "'}"
+                "}"
             ]
             # this could be done better by using dict and converting it to string later
 
