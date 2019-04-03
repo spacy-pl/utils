@@ -135,12 +135,6 @@ NE_njkp_to_spacy = {'persName': 'PERSON',
  'geogName': 'LOC'}
 
 class Token:
-    # def __init__(self, orth, attribs):
-    #     self.orth = orth
-    #     self.attribs = attribs
-    #     self.id = None #this is fugly
-
-
     def __init__(self, orth, attribs, id):
         self.orth = orth
         self.attribs = attribs
@@ -328,10 +322,8 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                     token = process_token(tok)
                     token.id = token_idx
                     token_idx += 1
-                    # if token.is_NE(): print(token)
                     tokens += [token]
 
-                # all_labels |= get_all_labels(tokens)
                 all_labels.merge(get_all_labels_with_cardinalities(tokens))
                 tokens = pick_tags(tokens)
                 tokens = convert_to_biluo(tokens)
@@ -343,8 +335,6 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                     for t in tokens
                 ], 'brackets': []
                 }
-                # print(sent)
-                # print(get_text(tokens))
 
                 text = get_text(tokens)
                 sentences += [sent]
@@ -359,6 +349,3 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
 
 with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
-
-# with open(os.path.expanduser(os.path.join(path_prefix, output_path, "analysis.json")), 'w+') as f:
-#     json.dump(all_labels.contents, f)
