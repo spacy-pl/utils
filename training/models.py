@@ -1,6 +1,6 @@
 import os
 import tempfile
-from functools import partial
+import json
 from sklearn.model_selection import ParameterGrid
 from dataclasses import dataclass, asdict
 
@@ -61,8 +61,8 @@ class SpacyModel(object):
         return os.path.join(self.model_path, 'meta.json')
 
     def fit(self, train_path: str, dev_path: str, train_params: TrainParams=TrainParams()) -> dict:
-        for key in hyperparams:
-            os.environ[key] = hyperparams[key]
+        for key in self.hyperparams:
+            os.environ[key] = str(self.hyperparams[key])
         spacy.cli.train(
             lang=self.lang,
             pipeline='tagger',
@@ -73,7 +73,7 @@ class SpacyModel(object):
             base_model=None,
             **asdict(train_params)
         )
-        self.meta = json.load(open(meta_path))
+        self.meta = json.load(open(self.meta_path))
         return self.meta
 
     def score(self, data_path: str, test_params: TestParams=TestParams()) -> dict:
@@ -83,52 +83,31 @@ class SpacyModel(object):
             return_scores=True,
             **asdict(test_params)
         )
-        return scores
-
-# Some examples of SpacyModel implementations:
-# Note that this API also allows us to create models that perform multiple tasks
-
-class SpacyTagger(SpacyModel):
-    def __init__(self, **kwargs):
-        super().__init__(self, 'tagger', **kwargs)
-
-
-class SpacyParser(SpacyModel):
-    def __init__(self, **kwargs):
-        super().__init__(self, 'parser', **kwargs)
-
-
-class SpacyNER(SpacyModel):
-    def __init__(self, **kwargs):
-        super().__init__(self, 'ner', **kwargs)
-
-
-def train_and_evaluate():
-    pass
-
+        return self.scores
 
 @click.command("Demonstrates how to use model wrappers for hyperparameter grid search.")
 @click.option('-v', '--vectors-path', required=True, type=str)
 @click.option('-t', '--train-data-path', required=True, type=str)
-@click.option('-t', '--test-data-path', required=True, type=str)
-@click.option('-t', '--output-path', default=None, type=str)
+@click.option('-d', '--dev-data-path', required=True, type=str)
+@click.option('-T', '--test-data-path', required=True, type=str)
+@click.option('-o', '--output-path', default=None, type=str)
 def grid_search_example(vectors_path, train_data_path, dev_data_path, test_data_path, output_path):
     """
     Demonstrates how to use model wrappers for hyperparameter grid search.
     """
     param_grid = {
-        'hidden_width': [64, 128, 256],
-        'dropout_from': [0.1, 0.2],
-        'dropout_to': [0.2, 0.4],
+        'hidden_width': [64, 128],
+        'dropout_from': [0.2, 0.4],
+        'dropout_to': [0.4],
     }
     # using very small trainin sample for demonstration to complete quickly - these results are useless
-    demo_train_params = TrainParams(n_iter=4, n_examples=10, use_gpu=-1)
+    demo_train_params = TrainParams(n_iter=5, n_examples=100, use_gpu=-1)
     score_dfs = []
     print(f"Performing grid search on following hyperparameters: {list(param_grid.keys())}")
     for idx, hyperparams in enumerate(ParameterGrid(param_grid)):
         print(f"Checking parameter set #{idx+1}...")
         with tempfile.TemporaryDirectory() as tmp_location:
-            model = SpacyTagger(vectors_path, tmp_location, hyperparams)
+            model = SpacyModel('tagger', vectors_path, tmp_location, hyperparams)
             model.fit(train_data_path, dev_data_path, demo_train_params)
             scores = model.score(test_data_path)
             params_and_scores_row = pd.DataFrame({**hyperparams, **scores}, index=[idx])
