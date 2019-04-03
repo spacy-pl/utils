@@ -154,7 +154,7 @@ def process_token(tok):
     attribs = []
     orth = tok.find("orth").text
     for ann in tok.iter("ann"):
-        if ann.attrib['chan'].endswith("nam") and ann.text=="1":
+        if ann.attrib['chan'].endswith("nam") and ann.text!="0":
             attribs += [ann.attrib['chan']]
 
     return Token(orth, attribs, -1)
