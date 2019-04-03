@@ -5,3 +5,5 @@ boto3
 gensim
 Click==7.0
 google.cloud.storage
+sklearn
+pandas
