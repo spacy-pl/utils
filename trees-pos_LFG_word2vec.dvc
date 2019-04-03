@@ -1,6 +1,6 @@
 cmd: python -m spacy train pl models/trees-pos_LFG_word2vec data/dependency_trees/LFG_spacy_converted/pl_lfg-ud-train.json
   data/dependency_trees/LFG_spacy_converted/pl_lfg-ud-dev.json --vectors models/blank_NKJP_word2vec/
-  --use-gpu 1 --gold-preproc --no-entities
+  --use-gpu 1 --gold-preproc -p tagger,parser
 deps:
 - md5: 330ef45fe5e432f8c3e025f455a61cd5.dir
   path: models/blank_NKJP_word2vec

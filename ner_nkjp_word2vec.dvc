@@ -1,6 +1,5 @@
 cmd: python -m spacy train pl models/ner_nkjp_word2vec data/training/NER/ner-train.json
-  data/training/NER/ner-validation.json --vectors models/blank_NKJP_word2vec --no-parser
-  --no-tagger -n 9
+  data/training/NER/ner-validation.json --vectors models/blank_NKJP_word2vec -p ner -n 9
 deps:
 - md5: bb32d7633339ebfd28c27c7efab59d68.dir
   path: models/blank_NKJP_word2vec

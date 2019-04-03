@@ -1,10 +1,12 @@
 cmd: python -m spacy init-model pl models/blank_NKJP_word2vec --vectors-loc data/vectors_300.txt
 deps:
-- md5: 5044cd9ea90b05ead57d1871fa209b5e
+- md5: 6a7d234da502e267905c72b1969a0965
   path: data/vectors_300.txt
-md5: 566b8cbd04a6f295b4cb42f89ca8ea99
+md5: e22ab7124f38141e9462946969649955
 outs:
 - cache: true
-  md5: bb32d7633339ebfd28c27c7efab59d68.dir
+  md5: ad3e7f3e59b3108aa0b7f11d870996e8.dir
   metric: false
   path: models/blank_NKJP_word2vec
+  persist: false
+wdir: .

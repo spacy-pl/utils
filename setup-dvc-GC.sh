@@ -24,7 +24,7 @@ if [ ! -f $key_name ]
 fi
 key_dir="$key_dir/$key_name"
 
-echo "GOOGLE_APPLICATION_CREDENTIALS=\"$key_dir\"" >> ~/.bashrc
+echo "export GOOGLE_APPLICATION_CREDENTIALS=\"$key_dir\"" >> ~/.bashrc
 source ~/.bashrc
 
 echo "Type in 'source ~/.bashrc' or open a new terminal window for changes to take effect"

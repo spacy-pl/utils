@@ -2,13 +2,16 @@ cmd: python3 tagmap/generate_tagset_and_conversion_map.py
 deps:
 - md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
   path: data/NKJP_1.2_nltk
-md5: 55451c44e5abd50629f3566c7f76478c
+md5: 2ecb132a4ce492ca00fc7f4170714a2d
 outs:
 - cache: true
   md5: 7825db7f50f798d2c506abaa125dcd3b
   metric: false
   path: data/tagmap_data/transitional_tagset.json
+  persist: false
 - cache: true
   md5: 4ab25ee56473bd725b9de9240cc68700
   metric: false
   path: data/tagmap_data/nkjp2us.json
+  persist: false
+wdir: .

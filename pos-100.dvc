@@ -5,9 +5,11 @@ deps:
   path: data/NKJP_1.2_nltk
 - md5: 4ab25ee56473bd725b9de9240cc68700
   path: data/tagmap_data/nkjp2us.json
-md5: 737b4e0d42cd256644e1a25ab3b96e66
+md5: 8fe4b41e9b2bc9574a8667c1b8ba362f
 outs:
 - cache: true
   md5: 120e3e14b71821dd20e5462ecd7dbeca
   metric: false
   path: data/spacy_convert/pos-100.json
+  persist: false
+wdir: .

@@ -1,6 +1,5 @@
 cmd: ' python -m spacy train pl models/pos_NKJP_word2vec data/training/pos/pos-train.json
-  data/training/pos/pos-validation.json -n 9 --vectors models/blank_NKJP_word2vec
-  --no-parser --no-entities'
+  data/training/pos/pos-validation.json -p tagger -n 9 --vectors models/blank_NKJP_word2vec'
 deps:
 - md5: 98cc374683df527fda020570fff1a048
   path: data/training/pos/pos-train.json

@@ -1,4 +1,4 @@
-dvc
+dvc==0.34.0
 nltk
 -e git+https://github.com/google/sre_yield#egg=re_yield
 boto3
