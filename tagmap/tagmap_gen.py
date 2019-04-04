@@ -29,7 +29,7 @@ def main(args):
 
     res += ',\n'.join(tagmap_list)
 
-    res += "}"
+    res += ",\n}"
 
     with open(os.path.expanduser(args.tagmap_filepath), 'w') as f:
         f.write(res)
