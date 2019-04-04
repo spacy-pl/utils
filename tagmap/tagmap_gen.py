@@ -6,7 +6,7 @@ from tagmap_draw import fleksem_to_pos
 
 PREFIX = """# coding: utf8
 from __future__ import unicode_literals
-from ..symbols import *\n
+from ...symbols import *\n
 TAG_MAP = {
 """
 
