@@ -5,8 +5,8 @@ import argparse
 from tagmap_draw import fleksem_to_pos
 
 PREFIX = """# coding: utf8
-from future import unicode_literals
-from ..symbols import *
+from __future__ import unicode_literals
+from ..symbols import *\n
 TAG_MAP = {
 """
 
@@ -19,7 +19,7 @@ def main(args):
     for k, v in structurized_data.items():
         for v1 in v:
             tagmap_list += [
-                "\"" + ':'.join([k]+v1['tags']) +
+                "    \"" + ':'.join([k]+v1['tags']) +
                 "\": {POS: " + fleksem_to_pos[k] +
                 "}"
             ]
