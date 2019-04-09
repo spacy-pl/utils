@@ -5,6 +5,7 @@ deps:
   path: evaluation/lemmatizer_predict.py
 - md5: da6e32558f3a8d011727f1300371ca59
   path: data/dependency_trees/UD_Polish-LFG-master/pl_lfg-ud-dev.conllu
+locked: true
 md5: 46f47c848d9057338bf1318966a3e76d
 outs:
 - cache: true
