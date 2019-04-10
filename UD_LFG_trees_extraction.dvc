@@ -3,9 +3,11 @@ cmd: ' unzip -d data/dependency_trees/ data/dependency_trees/UD_Polish_LFG.zip U
 deps:
 - md5: 9de3eff1a7ccccc2ee4777c5fbf766fa
   path: data/dependency_trees/UD_Polish_LFG.zip
-md5: d2dae133bc54ba7a61c85ed133b36106
+md5: a8e62a34707dbdce953b0d126f69f7d4
 outs:
 - cache: true
   md5: e446672c5a4b34e7bbb3b77fa7ebff04.dir
   metric: false
   path: data/dependency_trees/UD_Polish-LFG-master
+  persist: false
+wdir: .
