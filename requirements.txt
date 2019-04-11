@@ -7,3 +7,4 @@ Click==7.0
 google.cloud.storage
 sklearn
 pandas
+conll-df
