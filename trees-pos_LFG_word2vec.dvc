@@ -2,14 +2,14 @@ cmd: python -m spacy train pl models/trees-pos_LFG_word2vec data/dependency_tree
   data/dependency_trees/LFG_spacy_converted/pl_lfg-ud-dev.json --vectors models/blank_NKJP_word2vec/
   -g 0 -n 18 --gold-preproc -p tagger,parser
 deps:
-- md5: 588b80c0de02c590605cf7f8cba1d9d3.dir
+- md5: 811f1e5877aa6deae82acbc33fbf3696.dir
   path: models/blank_NKJP_word2vec
 - md5: c83bae27154249b29141ab05b7e3ff25.dir
   path: data/dependency_trees/LFG_spacy_converted
-md5: 1b02c8e5080937fd1e7b1d5b1b10c6d6
+md5: d3dced814e7cdf04db3ee9be45f00d9d
 outs:
 - cache: true
-  md5: 82c37584f14578e191cb2106e338a7b1.dir
+  md5: d320adafecd0bf5173e6f3cacc5f4da0.dir
   metric: false
   path: models/trees-pos_LFG_word2vec
   persist: false

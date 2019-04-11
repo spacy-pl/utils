@@ -1,1 +1,4 @@
 *.json
+/ner-train.json
+/ner-test.json
+/ner-validation.json

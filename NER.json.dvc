@@ -2,12 +2,13 @@ cmd: python ConvertNER/convert_NER.py
 deps:
 - md5: 8b70b91a64dc1374337cf326b9cbf168.dir
   path: data/NKJP-PodkorpusMilionowy-1.2
-- md5: c9529b45e2559433815b45a95784ca89
+- md5: 254e5a5e83b0a1c1acf0eb4b6f0a1f2f
   path: ConvertNER/convert_NER.py
-md5: 737197f9ee35cb70af7d117a9a583937
+md5: cb7781beee7bdaa797129499e15dd6ab
 outs:
 - cache: true
-  md5: eae7d3b22607b1cea2c9522471314816
+  md5: 98700b0e4cad95693de2a3886ed2e247
   metric: false
   path: data/NER/NER.json
+  persist: false
 wdir: .
