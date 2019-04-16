@@ -11,6 +11,12 @@ from strategies import JustPOS
 CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
 
 
+def assert_empty(set, message):
+    if len(set) != 0:
+        print(list(set).sort())
+        raise AssertionError(message)
+
+
 def prepare_structured_data():
     corpus = nltk.corpus.reader.TaggedCorpusReader(root=CORPUS_PATH, fileids=r".*")
     tags = [x[1] for x in corpus.tagged_words()]
@@ -33,7 +39,7 @@ def prepare_structured_data():
         flexeme_data = dict(tags=s[1], card=s[2])
         structured_data[flexeme] += [flexeme_data]
 
-    return structured_data
+    return structured_data, set(tags)
 
 
 @click.command(help='Generate tagset and nkjp2us mapping')
@@ -47,7 +53,7 @@ def generate_tagset_and_conversion(
         min_cardinality,
         strategy
 ):
-    structured_data = prepare_structured_data()
+    structured_data, original_nkjp_tags = prepare_structured_data()
 
     if strategy == 'justpos':
         strategy_obj = JustPOS()
@@ -56,11 +62,18 @@ def generate_tagset_and_conversion(
 
     conversion_function, transitional_tagset = strategy_obj.prepare_conversion(structured_data)
 
-    # a new tagset (to generate tagmap)
+    # assert original nkjp tags and conversion function keys are exactly the same
+    diff_keys_original = set(original_nkjp_tags) ^ set(conversion_function.keys())
+    assert_empty(diff_keys_original, "Conversion function keys differ from nkjp tags")
+
+    # assert results of conversion equal tags in tagset
+    tagset_tags = [pos + ":" + e['tags'] if e['tags'] else pos for pos, l in transitional_tagset.items() for e in l]
+    diff_conversion_tagset = set(conversion_function.values()) ^ set(tagset_tags)
+    assert_empty(diff_conversion_tagset, "Tagset and right side of conversion function differ")
+
     with open(tagset_filepath, 'w') as file:
         file.write(json.dumps(transitional_tagset, indent=4, sort_keys=True))
 
-    # a mapping from original NKJP tagset to our smaller tagset (to convert nkjp)
     with open(conversion_map_filepath, 'w') as file:
         file.write(json.dumps(conversion_function, indent=4, sort_keys=True))
 
