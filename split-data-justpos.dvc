@@ -1,0 +1,26 @@
+cmd: python training/split-data.py --input-file data/spacy_convert/pos-justpos.json
+  --train-output data/training/pos-justpos/pos-train.json --validation-output data/training/pos-justpos/pos-validation.json
+  --test-output data/training/pos-justpos/pos-test.json
+deps:
+- md5: 6cfcad23cc4cf26a278b96764a5278ff
+  path: data/spacy_convert/pos-justpos.json
+- md5: b1161bbda9e6dc6aecf38de3de176266
+  path: training/split-data.py
+md5: c6865fd3df248f620a73fb3ba20befa2
+outs:
+- cache: true
+  md5: 98cc374683df527fda020570fff1a048
+  metric: false
+  path: data/training/pos-justpos/pos-train.json
+  persist: false
+- cache: true
+  md5: eb10fad253261e912f5fcdc75b567745
+  metric: false
+  path: data/training/pos-justpos/pos-validation.json
+  persist: false
+- cache: true
+  md5: c5fc35993b58ea8a15572b2c82ff87c3
+  metric: false
+  path: data/training/pos-justpos/pos-test.json
+  persist: false
+wdir: .
