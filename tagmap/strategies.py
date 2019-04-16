@@ -1,3 +1,6 @@
+from tqdm import tqdm
+
+
 class Strategy:
     """This class represents a strategy for squashing tags from NKJP"""
 
@@ -32,11 +35,17 @@ class JustPOS(Strategy):
         conversion_map = {}
         transitional_tagset = {}
 
-        for fleksem, subclasses in structured_data.items():
-            fleksem_card = 0
-            for subclass in subclasses:
-                conversion_map[self.make_full_tag(fleksem, subclass['tags'])] = fleksem
-                fleksem_card += subclass['card']
-            transitional_tagset[fleksem] = [{'tags': [], 'card': fleksem_card}]
+        num_subclasses = 0
+        for subclasses in structured_data.values():
+            num_subclasses += len(subclasses)
+
+        with tqdm(total=num_subclasses) as pbar:
+            for fleksem, subclasses in structured_data.items():
+                fleksem_card = 0
+                for subclass in subclasses:
+                    conversion_map[self.make_full_tag(fleksem, subclass['tags'])] = fleksem
+                    fleksem_card += subclass['card']
+                    pbar.update(1)
+                transitional_tagset[fleksem] = [{'tags': [], 'card': fleksem_card}]
 
         return conversion_map, transitional_tagset

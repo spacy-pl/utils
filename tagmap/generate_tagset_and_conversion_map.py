@@ -1,98 +1,14 @@
 import os
 import json
 
-from typing import NamedTuple
 from collections import defaultdict
 
 import click
 import nltk
 
-from tqdm import tqdm
 from strategies import JustPOS
 
 CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
-
-
-class Flexeme(NamedTuple):
-    subclasses: list
-
-    def convert(self):
-        return [s.convert() for s in self.subclasses]
-
-
-class FlexemeSubclass(NamedTuple):
-    tags: list
-    card: int
-
-    def convert(self):
-        return {"tags": self.tags, "card": self.card}
-
-
-class Candidate(NamedTuple):
-    intersection_size: int
-    union_card: int
-    flexeme_subclass: FlexemeSubclass
-    index: int
-
-
-def get_longes_common_subchain(lst1, lst2):
-    longest_substr = []
-    if lst1 and lst2:
-        opt1 = get_longes_common_subchain(lst1[1:], lst2)
-        opt2 = get_longes_common_subchain(lst1, lst2[1:])
-        opt3 = get_longes_common_subchain(lst1[1:], lst2[1:])
-        if lst1[0] == lst2[0]:
-            opt3.insert(0, lst1[0])
-
-        max_l = max([len(l) for l in [opt1, opt2, opt3]])
-        for l in [opt1, opt2, opt3]:
-            if len(l) == max_l:
-                longest_substr = l
-                break
-
-    return longest_substr
-
-
-def concat(A):
-    res = ""
-    for a in A:
-        res += ':'
-        res += a
-
-    res = res[1:]
-    return res
-
-
-def flatten(A):
-    def merge(B):
-        tmp = {'tags': B[0]['tags'], 'card': 0}
-        for el in B:
-            tmp['card'] += el['card']
-        return tmp
-
-    sets = {}
-    for el in A:
-        key = concat(el['tags'])
-        if key in sets:
-            sets[key] += [el]
-        else:
-            sets[key] = [el]
-
-    res = []
-    for k, v in sets.items():
-        res += [merge(v)]
-
-    return res
-
-
-def get_function_keys(k, t, best):
-    k1 = k + ':' + concat(t[best.index].tags)
-    k2 = k + ':' + concat(t[0].tags)
-    return k1, k2
-
-
-def get_function_value(k, best):
-    return k + ':' + concat(best.flexeme_subclass.tags)
 
 
 def prepare_structured_data():
