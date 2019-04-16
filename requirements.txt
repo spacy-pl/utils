@@ -11,3 +11,4 @@ conll-df
 cupy-cuda100
 thinc_gpu_ops
 thinc[cuda100]
+newspaper3k
