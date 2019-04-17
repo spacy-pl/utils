@@ -4,8 +4,11 @@ deps:
   path: data/lemmatizer_data/polish.aff
 - md5: 34717bc9ae4a24b78b84ed75c494f128
   path: data/lemmatizer_data/private.aff
-md5: c03bfa456c04e85d268f9b58f9da03ad
+md5: c90a225700f5b3bcb619c5590905ba37
 outs:
 - cache: true
   md5: c53b055826199aad22c3e590e23b5cd5
+  metric: false
   path: data/lemmatizer_data/rules.json
+  persist: false
+wdir: .
