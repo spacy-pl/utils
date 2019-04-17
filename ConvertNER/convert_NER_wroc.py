@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 from spacy.gold import biluo_tags_from_offsets
+from NER_pwr_to_spacy import NER_pwr_to_spacy
 # import spacy
 import json
 import os
@@ -7,7 +8,7 @@ import os
 path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
 output_path = 'data/NER/'
-output = 'analysis.json'
+output = 'NER_wroc_19.json'
 
 
 class setCounter:
@@ -226,6 +227,13 @@ def get_all_labels_with_cardinalities(tokens):
     return labels
 
 
+def map_labels(tokens, map):
+    for tok in tokens:
+        tok.attribs = [map[attrib] for attrib in tok.attribs]
+
+    return tokens
+
+
 def pick_tags(tokens):
     # first and last separately
     if len(tokens) == 0:
@@ -360,6 +368,7 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                 # all_labels |= get_all_labels(tokens)
                 all_labels.merge(get_all_labels_with_cardinalities(tokens))
                 tokens = pick_tags(tokens)
+                tokens = map_labels(tokens, NER_pwr_to_spacy)
                 tokens = convert_to_biluo(tokens)
 
                 sent = {'tokens': [{
