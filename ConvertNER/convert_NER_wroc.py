@@ -34,6 +34,10 @@ class Token:
         return (self.orth + ":" + str(self.attribs))
 
 
+def get_subdirs(dir):
+    return [name for name in os.listdir(dir) if os.path.isdir(os.path.join(dir, name))]
+
+
 def process_token(tok):
     attribs = []
     orth = tok.find("orth").text
