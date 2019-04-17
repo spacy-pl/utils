@@ -1,0 +1,8 @@
+md5: 6ea842df6957e0f2a1c95bdb15539a0a
+outs:
+- cache: true
+  md5: 04ac1c6e90c3d0b933569957ccfa2ea3.dir
+  metric: false
+  path: models/pl_pos_tagger-0.0.1
+  persist: false
+wdir: ..
