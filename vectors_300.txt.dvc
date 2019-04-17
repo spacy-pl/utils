@@ -4,10 +4,10 @@ deps:
   path: data/NKJP_1.2_nltk
 - md5: 1dcf1e301974b9bdf3cbbc2d1a76cfa9
   path: vectors/train_vectors_300.py
-md5: f61512ea509d394254e6887612781545
+md5: a1db11c944dc8afc587d7a3d8d691f16
 outs:
 - cache: true
-  md5: e662bda284b879d4bcbde41d6d2be3dd
+  md5: 23e089e8540c5de8185a7107ec742d6c
   metric: false
   path: data/vectors_300.txt
   persist: false

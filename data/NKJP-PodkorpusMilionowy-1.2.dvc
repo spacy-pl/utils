@@ -1,5 +1,8 @@
-md5: 5c7d380226d54dcf16d1826a34163560
+md5: 03d43b28ac163c7b15265fb3e8e0a79e
 outs:
 - cache: true
   md5: 8b70b91a64dc1374337cf326b9cbf168.dir
+  metric: false
   path: NKJP-PodkorpusMilionowy-1.2
+  persist: false
+wdir: .
