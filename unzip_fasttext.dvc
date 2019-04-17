@@ -2,10 +2,11 @@ cmd: gunzip -dkf data/vectors/cc.pl.300.vec.gz
 deps:
 - md5: 630ee9a7fb7070ced69932458557aff6
   path: data/vectors/cc.pl.300.vec.gz
-md5: 19588a6dafd970f7c3b44abfd82c5344
+md5: 1512b0b72075cff079711c12b54b0dee
 outs:
 - cache: true
   md5: 8cf7b78bfa20b07589e110f58a370e47
   metric: false
   path: data/vectors/cc.pl.300.vec
+  persist: false
 wdir: .
