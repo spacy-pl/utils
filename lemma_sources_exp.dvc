@@ -1,0 +1,14 @@
+cmd: python lemma_rules_extraction/yield_all_suffixes.py
+deps:
+- md5: 947b48802b53bdff2ad02122c04063e5.dir
+  path: data/lemmatizer_data/lemma_sources
+- md5: abb151c19621000ccc91d8e4b494674f
+  path: lemma_rules_extraction/yield_all_suffixes.py
+md5: 53ab70bcbc27640766d00b4977b4733d
+outs:
+- cache: true
+  md5: 4f29377d4c9dd5c9997c74750af31321.dir
+  metric: false
+  path: data/lemmatizer_data/lemma_sources_exp
+  persist: false
+wdir: .
