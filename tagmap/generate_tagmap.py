@@ -2,12 +2,15 @@ import os
 import json
 import argparse
 
-from tagmap_draw import fleksem_to_pos
+from flexemes2UD import flexeme_to_pos
 
 PREFIX = """# coding: utf8
 from __future__ import unicode_literals
-from ...symbols import *\n
-TAG_MAP = {
+from ...symbols import POS, PUNCT, SYM, ADJ, CCONJ, SCONJ, NUM, DET, ADV, ADP, X, VERB
+from ...symbols import NOUN, PROPN, PART, INTJ, PRON, AUX
+
+
+TAG_MAP_AUX = {
 """
 
 
@@ -20,7 +23,7 @@ def main(args):
         for v1 in v:
             tagmap_list += [
                 "    \"" + ':'.join([k]+v1['tags']) +
-                "\": {POS: " + fleksem_to_pos[k] +
+                "\": {POS: " + flexeme_to_pos[k] +
                 "}"
             ]
             # this could be done better by using dict and converting it to string later
@@ -37,7 +40,7 @@ def main(args):
 
 if __name__ == "__main__":
     TAGSET_FILEPATH = './data/tagmap_data/transitional_tagset.json'
-    TAGMAP_FILEPATH = './data/tagmap_data/tag_map.py'
+    TAGMAP_FILEPATH = './data/tagmap_data/tag_map_aux.py'
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--tagset_filepath', type=str, default=TAGSET_FILEPATH)

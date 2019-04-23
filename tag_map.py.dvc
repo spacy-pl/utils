@@ -1,14 +1,16 @@
-cmd: python tagmap/tagmap_gen.py
+cmd: python tagmap/generate_tagmap.py
 deps:
-- md5: 26190682ee32afc5abe6197d848558ba
-  path: tagmap/tagmap_gen.py
+- md5: be055f64830d29479351780b00a080e2
+  path: tagmap/generate_tagmap.py
+- md5: d9c3f326eaae50e95bef900ab8b7958c
+  path: tagmap/flexemes2UD.py
 - md5: 7825db7f50f798d2c506abaa125dcd3b
   path: data/tagmap_data/transitional_tagset.json
-md5: 53330a41023ebd0cefa5e8acfd088cf8
+md5: 681894488412a9ab936df280ea034753
 outs:
 - cache: true
-  md5: ae761c5a5e7028d83531c1364371a5d3
+  md5: be24188d43831e4aa52daaeab4d31c46
   metric: false
-  path: data/tagmap_data/tag_map.py
+  path: data/tagmap_data/tag_map_aux.py
   persist: false
 wdir: .
