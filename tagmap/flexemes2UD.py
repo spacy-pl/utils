@@ -1,4 +1,4 @@
-fleksem_to_pos = {'ADJ': 'ADJ',
+flexeme_to_pos = {'ADJ': 'ADJ',
                   'ADJA': 'ADJ',
                   'ADJC': 'ADJ',
                   'ADJP': 'ADJ',
