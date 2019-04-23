@@ -6,12 +6,12 @@ deps:
   path: data/training/pos-100/pos-train.json
 - md5: 5756df171c0277001cfb2c7ca99d89e7
   path: data/training/pos-100/pos-validation.json
-- md5: f094aa639c48653a70191cb6a4912e77.dir
+- md5: 1028217abe7701da69da83de19212482.dir
   path: models/blank_NKJP_word2vec
-md5: 53ed3557d082e7d48af0603431409450
+md5: e055ddae21c1c0e3fd49915ac9e9d132
 outs:
 - cache: true
-  md5: 2db9ceac79bac3c27fbed3f6c9d6837a.dir
+  md5: 8e98b52c5e2db4538e05737d56fa174a.dir
   metric: false
   path: models/pos_NKJP-100_word2vec
   persist: false
