@@ -6,7 +6,7 @@ echo ""
 # --- SETTINGS ---
 
 PACKAGE_DIR="models/deployment"  # same as passed to combine or spacy.cli.package
-MODEL_NAME="pl_model-0.0.0"  # same as inputted in spacy.cli.package
+MODEL_NAME="pl_model-0.1.0"  # same as inputted in spacy.cli.package
 
 BUCKET_NAME="gs://spacy-pl-public-models"
 BUCKET_PUBLIC_URL="https://storage.googleapis.com/spacy-pl-public-models"
@@ -39,4 +39,4 @@ INSTALLED_MODEL_NAME=$(echo $MODEL_NAME | sed -e 's/[^a-zA-Z_]//g')
 echo "To install the model:"
 echo "wget $BUCKET_PUBLIC_URL/$MODEL_NAME.tar.gz"
 echo "pip install $MODEL_NAME.tar.gz"
-echo "spacy.load($INSTALLED_MODEL_NAME)"
+echo "spacy.load('$INSTALLED_MODEL_NAME')"
