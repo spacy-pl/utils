@@ -4,9 +4,9 @@ cmd: python training/split-data.py --input-file data/spacy_convert/pos-justpos.j
 deps:
 - md5: 8d70322d7bd7d913175d767312588b87
   path: data/spacy_convert/pos-justpos.json
-- md5: b1161bbda9e6dc6aecf38de3de176266
+- md5: 006505262f56bcf5d91167663f46a37e
   path: training/split-data.py
-md5: eff34e3275a748d875aa0194ca5140ca
+md5: 31ee65e4e074c57542d95016d8af15e1
 outs:
 - cache: true
   md5: 2687c6d9b149a6464f8a2783abb9525e

@@ -38,7 +38,7 @@ def combine(
 @click.option('-p', '--pos-path', type=str)
 @click.option('-t', '--tree-path', type=str)
 @click.option('-n', '--ner-path', type=str)
-@click.option('blank-vectors-path', type=str)
+@click.argument('blank-vectors-path', type=str)
 def main(
         pos_path,
         tree_path,
