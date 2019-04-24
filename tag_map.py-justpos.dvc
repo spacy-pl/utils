@@ -1,0 +1,19 @@
+cmd: python tagmap/generate_tagmap.py --tagset_filepath data/tagmap_data/transitional_tagset-justpos.json  --tagmap_filepath
+  data/tagmap_data-justpos/tag_map_aux.py
+deps:
+- md5: be055f64830d29479351780b00a080e2
+  path: tagmap/generate_tagmap.py
+- md5: 84ed3f9c566d6839db0f8df57cec1d20
+  path: tagmap/flexemes2UD.py
+- md5: 50dc9132003fc850bc367ea85dd0060a
+  path: tagmap/strategies.py
+- md5: a081f69700fbc3f9975f7fc2e2142f67
+  path: data/tagmap_data/transitional_tagset-justpos.json
+md5: d36e9de4b8efee1b04efa2dc029ceacc
+outs:
+- cache: true
+  md5: 381baecb089a82cdd2d771bcde3d09aa
+  metric: false
+  path: data/tagmap_data-justpos/tag_map_aux.py
+  persist: false
+wdir: .
