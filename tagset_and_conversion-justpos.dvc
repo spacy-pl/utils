@@ -1,0 +1,22 @@
+cmd: python3 tagmap/generate_tagset_and_conversion_map.py --tagset-filepath data/tagmap_data/transitional_tagset-justpos.json
+  --conversion-map-filepath data/tagmap_data/nkjp2us-justpos.json --strategy justpos
+deps:
+- md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  path: data/NKJP_1.2_nltk
+- md5: 916e339b6c303e455ab776817c1f3931
+  path: tagmap/generate_tagset_and_conversion_map.py
+- md5: 50dc9132003fc850bc367ea85dd0060a
+  path: tagmap/strategies.py
+md5: 3a180cf2319037db148ef677b9fb4d28
+outs:
+- cache: true
+  md5: a081f69700fbc3f9975f7fc2e2142f67
+  metric: false
+  path: data/tagmap_data/transitional_tagset-justpos.json
+  persist: false
+- cache: true
+  md5: c26c1529d30e440d2f0e8b849df085cd
+  metric: false
+  path: data/tagmap_data/nkjp2us-justpos.json
+  persist: false
+wdir: .

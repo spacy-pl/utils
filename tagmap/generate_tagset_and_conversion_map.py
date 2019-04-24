@@ -46,7 +46,7 @@ def prepare_structured_data():
 @click.option("--tagset-filepath", type=str, default="./data/tagmap_data/transitional_tagset.json")
 @click.option("--conversion-map-filepath", type=str, default="./data/tagmap_data/nkjp2us.json")
 @click.option("--min-cardinality", type=int, default=100)
-@click.option("--strategy", type=str, default='justpos')
+@click.option("--strategy", type=str)
 def generate_tagset_and_conversion(
         tagset_filepath,
         conversion_map_filepath,
