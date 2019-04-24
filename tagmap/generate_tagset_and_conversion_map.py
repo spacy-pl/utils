@@ -1,101 +1,24 @@
 import os
 import json
 
-from typing import NamedTuple
 from collections import defaultdict
 
 import click
 import nltk
 
-from tqdm import tqdm
+from strategies import JustPOS
 
 CORPUS_PATH = os.path.abspath("./data/NKJP_1.2_nltk/")
 
 
-class Flexeme(NamedTuple):
-    subclasses: list
-
-    def convert(self):
-        return [s.convert() for s in self.subclasses]
-
-
-class FlexemeSubclass(NamedTuple):
-    tags: list
-    card: int
-
-    def convert(self):
-        return {"tags": self.tags, "card": self.card}
+def assert_empty(set, message):
+    if len(set) != 0:
+        print(list(set).sort())
+        raise AssertionError(message)
 
 
-class Candidate(NamedTuple):
-    intersection_size: int
-    union_card: int
-    flexeme_subclass: FlexemeSubclass
-    index: int
-
-
-def get_longes_common_subchain(lst1, lst2):
-    longest_substr = []
-    if lst1 and lst2:
-        opt1 = get_longes_common_subchain(lst1[1:], lst2)
-        opt2 = get_longes_common_subchain(lst1, lst2[1:])
-        opt3 = get_longes_common_subchain(lst1[1:], lst2[1:])
-        if lst1[0] == lst2[0]:
-            opt3.insert(0, lst1[0])
-
-        max_l = max([len(l) for l in [opt1, opt2, opt3]])
-        for l in [opt1, opt2, opt3]:
-            if len(l) == max_l:
-                longest_substr = l
-                break
-
-    return longest_substr
-
-
-def concat(A):
-    res = ""
-    for a in A:
-        res += ':'
-        res += a
-
-    res = res[1:]
-    return res
-
-
-def flatten(A):
-    def merge(B):
-        tmp = {'tags': B[0]['tags'], 'card': 0}
-        for el in B:
-            tmp['card'] += el['card']
-        return tmp
-
-    sets = {}
-    for el in A:
-        key = concat(el['tags'])
-        if key in sets:
-            sets[key] += [el]
-        else:
-            sets[key] = [el]
-
-    res = []
-    for k, v in sets.items():
-        res += [merge(v)]
-
-    return res
-
-
-def get_function_keys(k, t, best):
-    k1 = k + ':' + concat(t[best.index].tags)
-    k2 = k + ':' + concat(t[0].tags)
-    return k1, k2
-
-
-def get_function_value(k, best):
-    return k + ':' + concat(best.flexeme_subclass.tags)
-
-
-def prepare_structurized_data():
-    corpus = nltk.corpus.reader.TaggedCorpusReader(root=CORPUS_PATH, fileids=r"^[^\.]*")
+def prepare_structured_data():
+    corpus = nltk.corpus.reader.TaggedCorpusReader(root=CORPUS_PATH, fileids=r".*")
     tags = [x[1] for x in corpus.tagged_words()]
     fqd = nltk.FreqDist(tags)
 
@@ -110,93 +33,47 @@ def prepare_structurized_data():
     #     {tags: [other tags], card: cardinality}
     # )
     # }
-    structurized_data = defaultdict(list)
+    structured_data = defaultdict(list)
     for s in sets:
         flexeme = s[0]
-        flexeme_data = FlexemeSubclass(tags=s[1], card=s[2])
-        structurized_data[flexeme] += [flexeme_data]
+        flexeme_data = dict(tags=s[1], card=s[2])
+        structured_data[flexeme] += [flexeme_data]
 
-    return structurized_data
+    return structured_data, set(tags)
 
 
 @click.command(help='Generate tagset and nkjp2us mapping')
 @click.option("--tagset-filepath", type=str, default="./data/tagmap_data/transitional_tagset.json")
 @click.option("--conversion-map-filepath", type=str, default="./data/tagmap_data/nkjp2us.json")
 @click.option("--min-cardinality", type=int, default=100)
+@click.option("--strategy", type=str)
 def generate_tagset_and_conversion(
         tagset_filepath,
         conversion_map_filepath,
         min_cardinality,
+        strategy
 ):
-    structurized_data = prepare_structurized_data()
+    structured_data, original_nkjp_tags = prepare_structured_data()
 
-    conversion_function = {t + ':' + concat(d.tags): t + ':' + concat(d.tags) for t, l in structurized_data.items()
-                           for d in l if d.tags}
-    conversion_function.update({t: t for t in structurized_data})
-    result = {}
+    if strategy == 'justpos':
+        strategy_obj = JustPOS()
+    else:
+        raise ValueError(f"Strategy {strategy} does not exist")
 
-    for flexeme in tqdm(structurized_data):
-        flexeme_data = structurized_data[flexeme].copy()
-        flexeme_data = sorted(flexeme_data, key=lambda x: x.card)
+    conversion_function, transitional_tagset = strategy_obj.prepare_conversion(structured_data)
 
-        smallest_subclass = flexeme_data[0]
-        fin = []
-        while smallest_subclass.card < min_cardinality and len(flexeme_data) > 0:
-            smallest_subclass = flexeme_data[0]
-            best = Candidate(intersection_size=0, union_card=0, flexeme_subclass=None, index=None)
+    # assert original nkjp tags and conversion function keys are exactly the same
+    diff_keys_original = set(original_nkjp_tags) ^ set(conversion_function.keys())
+    assert_empty(diff_keys_original, "Conversion function keys differ from nkjp tags")
 
-            # find the best match for current smallest subclass
-            for i, match_candidate in enumerate(flexeme_data[1:]):
-                merge_tags = get_longes_common_subchain(smallest_subclass.tags, match_candidate.tags)
-                merge_card = smallest_subclass.card + match_candidate.card
-                intersection_size = len(merge_tags)
-                if intersection_size > best.intersection_size:
-                    best = Candidate(intersection_size, merge_card, FlexemeSubclass(merge_tags, merge_card), i)
-                elif intersection_size == best.intersection_size and merge_card <= best.union_card:
-                    best = Candidate(intersection_size, merge_card, FlexemeSubclass(merge_tags, merge_card), i)
+    # assert results of conversion equal tags in tagset
+    tagset_tags = [pos + ":" + e['tags'] if e['tags'] else pos for pos, l in transitional_tagset.items() for e in l]
+    diff_conversion_tagset = set(conversion_function.values()) ^ set(tagset_tags)
+    assert_empty(diff_conversion_tagset, "Tagset and right side of conversion function differ")
 
-            if best.index is not None:
-                # merge two matched subclasses, delete them and insert the result
-                key_1, key_2 = get_function_keys(flexeme, flexeme_data, best)
-                value = get_function_value(flexeme, best)
-
-                # bug fix: if k1 -> k2 and k2->k3, then k1->k3
-                keys_to_update = set()
-                for k, v in conversion_function.items():
-                    if v == key_1 or v == key_2:
-                        keys_to_update.add(k)
-
-                for k in keys_to_update:
-                    conversion_function[k] = value
-
-                conversion_function[key_1] = value
-                conversion_function[key_2] = value
-
-                del (flexeme_data[best.index])
-                del (flexeme_data[0])
-
-                flexeme_data.append(best.flexeme_subclass)
-                # now flexeme_data[0] is the smallest subclass again
-                flexeme_data = sorted(flexeme_data, key=lambda x: x.card)
-
-            else:
-                fin += [flexeme_data[0]]
-                del (flexeme_data[0])
-
-        flexeme_data += fin
-        if flexeme in result:
-            result[flexeme] += flexeme_data
-        else:
-            result[flexeme] = flexeme_data
-
-    for flexeme in result:
-        result[flexeme] = [subclass.convert() for subclass in result[flexeme]]
-
-    # a new tagset (to generate tagmap)
     with open(tagset_filepath, 'w') as file:
-        file.write(json.dumps(result, indent=4, sort_keys=True))
+        file.write(json.dumps(transitional_tagset, indent=4, sort_keys=True))
 
-    # a mapping from original NKJP tagset to our smaller tagset (to convert nkjp)
     with open(conversion_map_filepath, 'w') as file:
         file.write(json.dumps(conversion_function, indent=4, sort_keys=True))
 

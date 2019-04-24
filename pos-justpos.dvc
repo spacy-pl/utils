@@ -1,0 +1,17 @@
+cmd: python spacy_convert/converter.py --output-path data/spacy_convert/pos-justpos.json
+  --conversion-map-filepath data/tagmap_data/nkjp2us-justpos.json
+deps:
+- md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
+  path: data/NKJP_1.2_nltk
+- md5: c26c1529d30e440d2f0e8b849df085cd
+  path: data/tagmap_data/nkjp2us-justpos.json
+- md5: f9a5575edeb49c102782ba6030b60d4a
+  path: spacy_convert/converter.py
+md5: a6f6064c9479850e0890b0c693279916
+outs:
+- cache: true
+  md5: 8d70322d7bd7d913175d767312588b87
+  metric: false
+  path: data/spacy_convert/pos-justpos.json
+  persist: false
+wdir: .

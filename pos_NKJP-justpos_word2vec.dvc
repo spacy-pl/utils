@@ -1,0 +1,18 @@
+cmd: python -m spacy train pl models/pos_NKJP-justpos_word2vec data/training/pos-justpos/pos-train.json
+  data/training/pos-justpos/pos-validation.json -n 80 --vectors models/blank_NKJP_word2vec
+  -p tagger -g 0 -e 2
+deps:
+- md5: 2687c6d9b149a6464f8a2783abb9525e
+  path: data/training/pos-justpos/pos-train.json
+- md5: 58e0577357301b6b26001addf1e735d5
+  path: data/training/pos-justpos/pos-validation.json
+- md5: 1b3a40d99b0892f5256088cd19aea1c9.dir
+  path: models/blank_NKJP_word2vec
+md5: df0f8bf4c9ed4b52505fb9d4233c4735
+outs:
+- cache: true
+  md5: b33a82add8ba517f785ca23c4904a297.dir
+  metric: false
+  path: models/pos_NKJP-justpos_word2vec
+  persist: false
+wdir: .
