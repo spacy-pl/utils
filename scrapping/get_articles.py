@@ -38,8 +38,7 @@ def get_articles(
 
     print("Parsing...")
     for paper in papers.values():
-        for article in paper.articles:
-            article.parse()
+        paper.parse_articles()
 
     articles = [art.text for paper in papers.values() for art in paper.articles]
     articles = [art.replace("\n", "") for art in articles]

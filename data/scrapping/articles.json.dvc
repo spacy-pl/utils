@@ -1,7 +1,7 @@
-md5: 522755d5222d1186f5e12a92177e75be
+md5: 6da69efb2ec46112a5f9b3f8a39840a9
 outs:
 - cache: true
-  md5: 66b473b5401f4d14b014a9ac594d18e0
+  md5: 7c5200c20f4137e5deee1fddf2532c22
   metric: false
   path: data/scrapping/articles.json
   persist: false
