@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from spacy.gold import biluo_tags_from_offsets
-import spacy
+from spacy.lang.pl import Polish
 import json
 import os
 
@@ -120,7 +120,7 @@ def required_files_exist(dir):
 
     return True
 
-nlp = spacy.load('en_core_web_sm')
+nlp = Polish()
 doc_id = 0
 corpus = []
 
