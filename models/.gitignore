@@ -6,3 +6,5 @@
 /pos_NKJP-100_word2vec
 /blank_fasttext
 /pos_NKJP-justpos_word2vec
+
+/pos_NKJP-justpos_fasttext
