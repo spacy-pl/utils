@@ -1,5 +1,6 @@
 # coding: utf-8
 import sre_yield
+import settings
 import string
 import json
 import sys
@@ -27,9 +28,9 @@ def generate_rules(rules):
 
     return expanded_rules
 
-if __name__ == "__main__":
-    output = os.path.expanduser("./_expanded_rules.py")
-    prefix = os.path.expanduser("./data/lemmatizer_data/lemma_sources_exp/")
+
+def main(args):
+    prefix = os.path.expanduser(args.out_dir)
     os.makedirs(prefix, exist_ok=True)
     HEADER = "# coding: utf-8\nfrom __future__ import unicode_literals\n\n"
     INDENT = 4*" "
@@ -55,3 +56,9 @@ if __name__ == "__main__":
             text = text[:-2] + "\n]\n"
             f.write(text)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Extract rules from ispell aff file to more convenient form")
+    parser.add_argument('-o', '--out_dir', type=str, help="Output directory",
+                        default="./data/lemmatizer_data/lemma_sources_exp/")
+    args = parser.parse_args()
+    main(args)

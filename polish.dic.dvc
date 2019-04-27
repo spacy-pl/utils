@@ -1,5 +1,8 @@
 cmd: ' python ./lemma_rules_extraction/get_ispell.py'
 md5: afe59d69a568fbc21805a763e212d864
+deps:
+- md5: b281dd4f3bcbce480d1d9d64a8c34305
+  path: lemma_rules_extraction/get_ispell.py
 outs:
 - cache: true
   md5: aed3b97835124714c571bcc26ddaf055

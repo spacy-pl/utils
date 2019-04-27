@@ -2,6 +2,8 @@ cmd: python ./lemma_rules_extraction/assign_lemmas.py
 deps:
 - md5: aed3b97835124714c571bcc26ddaf055
   path: data/lemmatizer_data/polish.dic
+- md5: aed3b97835124714c571bcc26ddaf055
+  path: lemma_rules_extraction/assign_lemmas.py
 md5: d624bb2d0d0e282a600247275919edb4
 outs:
 - cache: true

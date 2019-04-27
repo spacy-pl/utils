@@ -6,6 +6,8 @@ deps:
   path: data/lemmatizer_data/words.json
 - md5: dd3c60f94b541abbf5d856b06e51f1a0
   path: lemma_rules_extraction/flag_to_tag.py
+- md5: c53b055826199aad22c3e590e23b5cd5
+  path: lemma_rules_extraction/prepare_sources.py'
 md5: c3d5e1e8755f572ff08d7ad605701ebc
 outs:
 - cache: true
