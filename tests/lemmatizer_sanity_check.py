@@ -14,4 +14,4 @@ if __name__ == '__main__':
             all_passed = False
 
     if all_passed:
-        print('Fine! Lemmatization looks like previously!')
+        print('Fine! Lemmas are the same as in the initial strategy!')

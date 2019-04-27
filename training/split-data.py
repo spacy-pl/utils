@@ -14,10 +14,10 @@ class Split(object):
 
 
 @click.command(help="Split JSON converted for POS tagger (input-file) training into train, test and validation files (based on given probabilities).")
-@click.option('--input-file', type=str)
-@click.option('--train-output', type=str)
-@click.option('--validation-output', type=str)
-@click.option('--test-output', type=str)
+@click.option('--input-file', type=str, required=True)
+@click.option('--train-output', type=str, required=True)
+@click.option('--validation-output', type=str, required=True)
+@click.option('--test-output', type=str, required=True)
 @click.option('--train-prob', default=0.5)
 @click.option('--validation-prob', default=0.25)
 @click.option('--test-prob', default=0.25)

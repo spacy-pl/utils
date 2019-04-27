@@ -1,0 +1,8 @@
+md5: 551d0d361ad654913b6be842bdf13df8
+outs:
+- cache: true
+  md5: 04ac1c6e90c3d0b933569957ccfa2ea3.dir
+  metric: false
+  path: release/pl_pos_tagger-0.0.1
+  persist: false
+wdir: ..

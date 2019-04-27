@@ -1,0 +1,8 @@
+md5: 6da69efb2ec46112a5f9b3f8a39840a9
+outs:
+- cache: true
+  md5: 7c5200c20f4137e5deee1fddf2532c22
+  metric: false
+  path: data/scrapping/articles.json
+  persist: false
+wdir: ../..

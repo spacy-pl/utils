@@ -2,15 +2,17 @@ cmd: python3 tagmap/generate_tagset_and_conversion_map.py
 deps:
 - md5: 4e0a78c1ae3d334f84cf2f98b47cae85.dir
   path: data/NKJP_1.2_nltk
-md5: 2ecb132a4ce492ca00fc7f4170714a2d
+- md5: 23923851325d9eaafc4ffab7af0e22be
+  path: tagmap/generate_tagset_and_conversion_map.py
+md5: c55fee67ff7a481a9a21937ae8721d51
 outs:
 - cache: true
-  md5: 7825db7f50f798d2c506abaa125dcd3b
+  md5: a081f69700fbc3f9975f7fc2e2142f67
   metric: false
   path: data/tagmap_data/transitional_tagset.json
   persist: false
 - cache: true
-  md5: 4ab25ee56473bd725b9de9240cc68700
+  md5: c26c1529d30e440d2f0e8b849df085cd
   metric: false
   path: data/tagmap_data/nkjp2us.json
   persist: false
