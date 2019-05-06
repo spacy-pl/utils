@@ -2,12 +2,17 @@ cmd: ' python ./lemma_rules_extraction/prepare_sources.py'
 deps:
 - md5: c53b055826199aad22c3e590e23b5cd5
   path: data/lemmatizer_data/rules.json
-- md5: e59b4edb8068dd71b1db16355fe524fd
+- md5: a3ffe643a9206f0aaab49802a153fdfd
   path: data/lemmatizer_data/words.json
 - md5: dd3c60f94b541abbf5d856b06e51f1a0
   path: lemma_rules_extraction/flag_to_tag.py
-md5: 5f938c06887eff0831fe1c879d6e7142
+- md5: c53b055826199aad22c3e590e23b5cd5
+  path: lemma_rules_extraction/prepare_sources.py'
+md5: c3d5e1e8755f572ff08d7ad605701ebc
 outs:
 - cache: true
-  md5: efc14b01ea3050f3405e29145373ff81.dir
+  md5: 3f283a54d82a9436a7cc2fb683f55651.dir
+  metric: false
   path: data/lemmatizer_data/lemma_sources
+  persist: false
+wdir: .
