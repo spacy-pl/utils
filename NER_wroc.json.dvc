@@ -1,4 +1,4 @@
-cmd: python ConvertNER/convert_NER_wroc.py
+cmd: python ConvertNER/convert_NER_wroc.py -m false data/NER/NER_wroc.json
 deps:
 - md5: d84971d4b907e5efc5d9320de6691027.dir
   path: data/kpwr-1.1

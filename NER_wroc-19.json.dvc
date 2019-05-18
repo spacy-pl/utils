@@ -1,4 +1,4 @@
-cmd: python ConvertNER/convert_NER_wroc.py --use_label_map True
+cmd: python ConvertNER/convert_NER_wroc.py -m true data/NER/NER_wroc-19.json 
 deps:
 - md5: d84971d4b907e5efc5d9320de6691027.dir
   path: data/kpwr-1.1
@@ -11,6 +11,6 @@ outs:
 - cache: true
   md5: ffd284e41307a7b0815d10623a0b4c99
   metric: false
-  path: data/NER/NER_wroc_19.json
+  path: data/NER/NER_wroc-19.json
   persist: false
 wdir: .
