@@ -7,7 +7,6 @@ import os
 path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
 output_path = 'data/NER/'
-output = 'NER_wroc.json'
 
 
 class setCounter:
@@ -181,7 +180,10 @@ def main(args):
         # classes = set(NER_pwr_to_spacy.values())
         # output = f'NER_wroc_{len(classes)}.json'
         # this would be a cool feature but I'm not sure if it's good for automatic pipelines
-        output = 'NER_wroc_spacy_labels.json'
+        output = 'NER_wroc_19.json'
+    else:
+        output = 'NER_wroc.json'
+
     all_labels = setCounter()
     corpus = []
     doc_idx = 0

@@ -2,14 +2,14 @@ cmd: python ConvertNER/convert_NER_wroc.py --use_label_map True
 deps:
 - md5: d84971d4b907e5efc5d9320de6691027.dir
   path: data/kpwr-1.1
-- md5: c8aa684e59762c66aeba79e2727c103f
+- md5: 6b0efe5fef5f6dbe3446d1745fe62054
   path: ConvertNER/convert_NER_wroc.py
-- md5: eee1569106fcf22473ee5a39f49f57bd
+- md5: 5b39ca0d3030cd348e41339f8b15a0c1
   path: ConvertNER/NER_pwr_to_spacy.py
-md5: 8edf603b1572083aedf1a95147deec94
+md5: 1ee97461d1000ed9e91b4d5d3d7b69a9
 outs:
 - cache: true
-  md5: ffd284e41307a7b0815d10623a0b4c99
+  md5: 5eb8cf47659e18f8a001c441846a1e65
   metric: false
   path: data/NER/NER_wroc_19.json
   persist: false
