@@ -1,0 +1,18 @@
+cmd: python -m spacy train pl models/ner_wroc_word2vec data/training/NER/ner-wroc-train.json
+  data/training/NER/ner-wroc-validation.json --vectors models/blank_NKJP_word2vec -p ner
+  -g 0 -n 9
+deps:
+- md5: f094aa639c48653a70191cb6a4912e77.dir
+  path: models/blank_NKJP_word2vec
+- md5: 4f5fa0d46b3bcf1aad179a2516a239e6
+  path: data/training/NER/ner-wroc-train.json
+- md5: 493ecce354af3119a3770322235fe626
+  path: data/training/NER/ner-wroc-validation.json
+md5: 6ce87c55bc71676db930ef36e6f81c9b
+outs:
+- cache: true
+  md5: ee74e26ca2c8c5a2317586d40b3cb28e.dir
+  metric: false
+  path: models/ner_wroc_word2vec
+  persist: false
+wdir: .
