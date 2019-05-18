@@ -1,13 +1,11 @@
 import xml.etree.ElementTree as ET
 from NER_pwr_to_spacy import NER_pwr_to_spacy
 import json
-import argparse
 import os
+import click
 
 path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
-output_path = 'data/NER/'
-output = 'NER_wroc.json'
 
 
 class setCounter:
@@ -176,8 +174,14 @@ def convert_to_biluo(tokens):
     return out
 
 
-def main(args):
-    if args.use_label_map:
+@click.command()
+@click.option("-m", "--use-label-map", type=bool, default=False)
+@click.argument("output_path", type=str)
+def main(
+        use_label_map,
+        output_path,
+):
+    if use_label_map:
         # classes = set(NER_pwr_to_spacy.values())
         # output = f'NER_wroc_{len(classes)}.json'
         # this would be a cool feature but I'm not sure if it's good for automatic pipelines
@@ -203,7 +207,7 @@ def main(args):
 
                     all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
                     tokens = pick_tags(tokens)
-                    if args.use_label_map:
+                    if use_label_map:
                         tokens = map_labels(tokens, NER_pwr_to_spacy)
                     tokens = convert_to_biluo(tokens)
 
@@ -224,13 +228,9 @@ def main(args):
                 corpus += [doc_json]
                 doc_idx += 1
 
-    with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
+    with open(os.path.expanduser(output_path), 'w+') as f:
         json.dump(corpus, f)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--use_label_map', type=bool, default=False)
-    args = parser.parse_args()
-
-    main(args)
+    main()
