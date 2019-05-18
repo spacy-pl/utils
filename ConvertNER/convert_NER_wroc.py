@@ -141,28 +141,6 @@ def convert_to_biluo(tokens):
     return out
 
 
-def get_text(tokens):
-    raw = ""
-    for token in tokens:
-        raw += token.orth + " "
-
-    _punct = r'… …… , : ; \! \? ¿ ؟ ¡ \( \) \[ \] \{ \} < > _ # \* & 。 ？ ！ ， 、 ； ： ～ · । ، ؛ ٪ . ! ?'
-    _quotes = r'\' \'\' " ” “ `` ` ‘ ´ ‘‘ ’’ ‚ , „ » « 「 」 『 』 （ ） 〔 〕 【 】 《 》 〈 〉'
-    _hyphens = '- – — -- --- —— ~'
-    _brackets_pref = ") ] }"
-    _brackets_post = "( [ {"
-
-    interp_pref = _punct.split(" ") + _quotes.split(" ") + _hyphens.split(" ") + _brackets_pref.split(" ")
-    interp_post = _brackets_post.split(" ")
-    for char in interp_pref:
-        raw = raw.replace(" " + char, char)
-
-    for char in interp_post:
-        raw = raw.replace(char + " ", char)
-
-    return raw
-
-
 docs = []
 doc_idx = 0
 for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
@@ -194,9 +172,7 @@ for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
                 ], 'brackets': []
                 }
 
-                text = get_text(tokens)
                 sentences += [sent]
-                raw += "\n" + text
 
             doc_json = {
                 'id': doc_idx,
