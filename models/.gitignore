@@ -5,6 +5,7 @@
 /ner_nkjp_word2vec
 /pos_NKJP-100_word2vec
 /blank_fasttext
+/ner-wroc-19-word2vec
 /pos_NKJP-justpos_word2vec
 
 /pos_NKJP-justpos_fasttext

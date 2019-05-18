@@ -1,0 +1,24 @@
+cmd: python training/split-data.py --input-file data/NER/NER_wroc_19.json --train-output
+  data/training/NER/ner-wroc-19-train.json --validation-output data/training/NER/ner-wroc-19-validation.json
+  --test-output data/training/NER/ner-wroc-19-test.json
+deps:
+- md5: ffd284e41307a7b0815d10623a0b4c99
+  path: data/NER/NER_wroc_19.json
+md5: e8749979d1f6bff59eb4b724a1e1d0d5
+outs:
+- cache: true
+  md5: 09e76ef24c694cdc9b5ce263cc6deca4
+  metric: false
+  path: data/training/NER/ner-wroc-19-train.json
+  persist: false
+- cache: true
+  md5: ad8ce2a4657262084b8d81e9ed07ac1d
+  metric: false
+  path: data/training/NER/ner-wroc-19-validation.json
+  persist: false
+- cache: true
+  md5: c02d5d314cf98f8327723edba692b8a4
+  metric: false
+  path: data/training/NER/ner-wroc-19-test.json
+  persist: false
+wdir: .
