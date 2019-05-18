@@ -2,10 +2,11 @@ cmd: python -m spacy init-model pl models/blank_fasttext --vectors-loc data/vect
 deps:
 - md5: bcc32bc715d37066add203fd533dd85c
   path: data/vectors/fasttext.txt
-md5: c29252a5a0c1c0b809bf5ee1a3cb39f6
+md5: 2a4dfc2012249e42ec709867eae9d9d7
 outs:
 - cache: true
-  md5: 89284e487d78d5f5bdf2ee1af6f85cf2.dir
+  md5: fe3ebcb89593a8e1026e7668ffe6de23.dir
   metric: false
   path: models/blank_fasttext
+  persist: false
 wdir: .

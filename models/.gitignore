@@ -7,3 +7,7 @@
 /blank_fasttext
 /ner-wroc-19-word2vec
 /pos_NKJP-justpos_word2vec
+
+/pos_NKJP-justpos_fasttext
+/trees_LFG_fasttext
+/ner_nkjp_fasttext

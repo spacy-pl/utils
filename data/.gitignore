@@ -11,5 +11,6 @@ vocab.jsonl
 /vectors_300.txt
 tagmap.py
 NKJP-PodkorpusMilionowy-1.2
-
+/NKJP_1.2_nltk.zip
+/NKJP_1.2_nltk
 /kpwr-1.1

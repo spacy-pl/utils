@@ -1,0 +1,16 @@
+cmd: python -m spacy train pl models/trees_LFG_fasttext data/dependency_trees/LFG_spacy_converted/pl_lfg-ud-train.json
+  data/dependency_trees/LFG_spacy_converted/pl_lfg-ud-dev.json --vectors models/blank_fasttext/
+  -g 0 -n 40 -e 2 --gold-preproc -p parser
+deps:
+- md5: fe3ebcb89593a8e1026e7668ffe6de23.dir
+  path: models/blank_fasttext
+- md5: c83bae27154249b29141ab05b7e3ff25.dir
+  path: data/dependency_trees/LFG_spacy_converted
+md5: c9231831d173070719dd35dbb5336523
+outs:
+- cache: true
+  md5: 1b7b693c4fa7c993e65b92f883ba6b18.dir
+  metric: false
+  path: models/trees_LFG_fasttext
+  persist: false
+wdir: .
