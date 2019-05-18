@@ -28,22 +28,8 @@ class setCounter:
 def get_subdirs(dir):
     return [name for name in os.listdir(dir) if os.path.isdir(os.path.join(dir, name))]
 
-doc_id = 0
-corpus = []
-
-NE_njkp_to_spacy = {'persName': 'PERSON',
-                    'placeName': 'LOC',
-                    'orgName': 'ORG',
-                    'date': 'DATE',
-                    'time': 'TIME',
-                    'geogName': 'LOC'}
 
 class Token:
-    # def __init__(self, orth, attribs):
-    #     self.orth = orth
-    #     self.attribs = attribs
-    #     self.id = None #this is fugly
-
     def __init__(self, orth, attribs, id):
         self.orth = orth
         self.attribs = attribs
@@ -202,10 +188,8 @@ def main(args):
     for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
         for file in os.listdir(os.path.join(path_prefix, corpus_path, subfolder)):
             if not file.endswith("rel.xml") and not file.endswith(".ini"):
-                doc_json = {}
                 sentences = []
                 token_idx = 0
-                raw = ""
                 tree = ET.parse(os.path.join(path_prefix, corpus_path, subfolder, file))
                 root = tree.getroot()
                 sents = root.iter("sentence")
@@ -215,11 +199,9 @@ def main(args):
                         token = process_token(tok)
                         token.id = token_idx
                         token_idx += 1
-                        # if token.is_NE(): print(token)
                         tokens += [token]
 
-                    # all_labels |= get_all_labels(tokens)
-                    all_labels.merge(get_all_labels_with_cardinalities(tokens))
+                    all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
                     tokens = pick_tags(tokens)
                     if args.use_label_map:
                         tokens = map_labels(tokens, NER_pwr_to_spacy)
