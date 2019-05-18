@@ -1,7 +1,6 @@
 import xml.etree.ElementTree as ET
-from spacy.lang.pl import Polish
 from spacy.gold import biluo_tags_from_offsets
-import spacy
+from spacy.lang.pl import Polish
 import json
 import os
 
@@ -139,8 +138,8 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     if not os.path.isdir((os.path.join(path_prefix,corpus_path,current_folder))):
         continue
 
-    # we skip the docs that don't have the required annotations (certain .xml files)
     if not required_files_exist(current_folder):
+        # doc_id +=1 ?
         continue
 
     tree_morphosyntax = ET.parse(os.path.join(path_prefix,corpus_path,current_folder,morphosyntax_xml))
@@ -209,9 +208,5 @@ for f in os.listdir(os.path.join(path_prefix, corpus_path)):
     doc_id += 1
     corpus += [doc_json]
 
-out_path = os.path.expanduser(os.path.join(path_prefix, output_path))
-if not os.path.exists(out_path):
-    os.makedirs(out_path)
-
-with open(os.path.join(out_path, output), 'w+') as f:
+with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
     json.dump(corpus, f)
