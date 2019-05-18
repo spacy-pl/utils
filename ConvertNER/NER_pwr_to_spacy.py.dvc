@@ -1,8 +1,0 @@
-md5: cc64c10e717772ae64bf63659aea7d78
-outs:
-- cache: true
-  md5: 5b39ca0d3030cd348e41339f8b15a0c1
-  metric: false
-  path: ConvertNER/NER_pwr_to_spacy.py
-  persist: false
-wdir: ..
