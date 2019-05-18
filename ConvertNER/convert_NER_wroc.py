@@ -28,8 +28,6 @@ class setCounter:
 def get_subdirs(dir):
     return [name for name in os.listdir(dir) if os.path.isdir(os.path.join(dir, name))]
 
-
-# nlp = spacy.load('en_core_web_sm')
 doc_id = 0
 corpus = []
 
@@ -192,28 +190,6 @@ def convert_to_biluo(tokens):
     return out
 
 
-def get_text(tokens):
-    raw = ""
-    for token in tokens:
-        raw += token.orth + " "
-
-    _punct = r'… …… , : ; \! \? ¿ ؟ ¡ \( \) \[ \] \{ \} < > _ # \* & 。 ？ ！ ， 、 ； ： ～ · । ، ؛ ٪ . ! ?'
-    _quotes = r'\' \'\' " ” “ `` ` ‘ ´ ‘‘ ’’ ‚ , „ » « 「 」 『 』 （ ） 〔 〕 【 】 《 》 〈 〉'
-    _hyphens = '- – — -- --- —— ~'
-    _brackets_pref = ") ] }"
-    _brackets_post = "( [ {"
-
-    interp_pref = _punct.split(" ") + _quotes.split(" ") + _hyphens.split(" ") + _brackets_pref.split(" ")
-    interp_post = _brackets_post.split(" ")
-    raw = raw[:-1]
-    for char in interp_pref:
-        raw = raw.replace(" " + char, char)
-
-    for char in interp_post:
-        raw = raw.replace(char + " ", char)
-
-    return raw
-
 def main(args):
     if args.use_label_map:
         # classes = set(NER_pwr_to_spacy.values())
@@ -256,12 +232,8 @@ def main(args):
                         for t in tokens
                     ], 'brackets': []
                     }
-                    # print(sent)
-                    # print(get_text(tokens))
 
-                    text = get_text(tokens)
                     sentences += [sent]
-                    raw += "\n" + text
 
                 doc_json = {
                     'id': doc_idx,
@@ -272,6 +244,7 @@ def main(args):
 
     with open(os.path.expanduser(os.path.join(path_prefix, output_path, output)), 'w+') as f:
         json.dump(corpus, f)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
