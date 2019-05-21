@@ -34,10 +34,15 @@ class Token:
         self.id = id
 
     def is_NE(self):
-        return len(self.attribs) != 0
+        return self.get_NE() is not None
 
     def get_NE(self):
-        return self.attribs[0] if len(self.attribs) > 0 else ""
+        for attrib in self.attribs:
+            for k in attrib:
+                if attrib[k] != "0":
+                    return k
+
+        return None
 
     def get_cooccurences(self):
         res = setCounter
@@ -83,35 +88,9 @@ def get_all_labels_with_cardinalities(tokens):
 
 def map_labels(tokens, map):
     for tok in tokens:
-        tok.attribs = [map[attrib] for attrib in tok.attribs]
+        tok.attribs = [{map[k]:v} for attrib in tok.attribs for k,v in attrib.items()]
 
     return tokens
-
-
-def get_longest_sequences(tokens):
-    res = []
-    b = 0
-    e = 0
-    # type = None
-
-    last_set = set()
-    while e != len(tokens)-1:
-        current_token = tokens[e]
-
-        if last_set == emptyset:
-            last_set = set(current_token.attribs)
-            b = e
-        else:
-            new_set = set(current_token.attribs) & last_set
-            if new_set == emptyset:
-                label = list(last_set)[0]
-                res.append((b, e, label))
-                b = e
-
-            last_set = new_set
-        e += 1
-
-    return res
 
 
 def still_in_sequence(v1, v2):
@@ -125,7 +104,7 @@ def get_last_label(v):
     return None
 
 
-def get_longest_sequences_2(tokens):
+def get_longest_sequences(tokens):
     res = []
     b = 0
     e = 0
@@ -154,8 +133,8 @@ def get_longest_sequences_2(tokens):
 
 
 emptyset = set()
-def pick_tags_2(tokens):
-    longest_sequences = get_longest_sequences_2(tokens)
+def pick_tags(tokens):
+    longest_sequences = get_longest_sequences(tokens)
     res = []
     for b, e, label in longest_sequences:
         seq = tokens[b:e]
@@ -166,54 +145,6 @@ def pick_tags_2(tokens):
     return tokens
 
 
-def flatten_token_attrib_dicts(tokens):
-    for tok in tokens:
-        tok.attribs = [k for k in tok.attribs[0].keys()] if len(tok.attribs) > 0 is not None else []
-
-    return tokens
-
-
-def pick_tags(tokens):
-    # first and last separately
-    if len(tokens) == 0:
-        return tokens
-    if len(tokens) == 1:
-        if tokens[0].is_NE():
-            tokens[0].attribs = [tokens[0].attribs[0]]
-        return tokens
-
-    t0 = tokens[0]
-    if len(t0.attribs) > 1:
-        new_tag = get_common_tag(t0, tokens[1])
-        if new_tag is None:
-            t0.attribs = [t0.attribs[0]]
-        else:
-            t0.attribs = [new_tag]
-
-    for i in range(1, len(tokens) - 1):
-        if len(tokens[i].attribs) > 1:
-            new_tag = get_common_tag(tokens[i - 1], tokens[i])
-            if new_tag is None:
-                new_tag = get_common_tag(tokens[i], tokens[i + 1])
-                if new_tag is None:
-                    tokens[i].attribs = [tokens[i].attribs[0]]
-                else:
-                    tokens[i].attribs = [new_tag]
-            else:
-                tokens[i].attribs = [new_tag]
-
-    te = tokens[-1]
-    if len(te.attribs) > 1:
-        new_tag = get_common_tag(te, tokens[-2])
-        if new_tag is None:
-            te.attribs = [te.attribs[0]]
-        else:
-            te.attribs = [new_tag]
-
-    assert (all(len(t.attribs) <= 1 for t in [t0] + tokens + [te]))
-    return [t0] + tokens[1:-2] + [te]
-
-
 def convert_to_biluo(tokens):
     out = []
     in_ne = False
@@ -222,10 +153,10 @@ def convert_to_biluo(tokens):
             if token.is_NE():
                 if tokens[i + 1].is_NE() and token.get_NE() == tokens[i + 1].get_NE():
                     # inner NE
-                    out += [Token(token.orth, ["I-" + token.get_NE()], token.id)]
+                    out += [Token(token.orth, [{"I-" + token.get_NE(): '1'}], token.id)]
                 else:
                     # last NE
-                    out += [Token(token.orth, ["L-" + token.get_NE()], token.id)]
+                    out += [Token(token.orth, [{"L-" + token.get_NE(): '1'}], token.id)]
                     in_ne = False
             else:
                 # we shouldn't ever get here
@@ -236,25 +167,25 @@ def convert_to_biluo(tokens):
                 # new NE
                 if tokens[i + 1].is_NE() and token.get_NE() == tokens[i + 1].get_NE():
                     # beginning NE
-                    out += [Token(token.orth, ["B-" + token.get_NE()], token.id)]
+                    out += [Token(token.orth, [{"B-" + token.get_NE(): '1'}], token.id)]
                     in_ne = True
                 else:
                     # unit NE
-                    out += [Token(token.orth, ["U-" + token.get_NE()], token.id)]
+                    out += [Token(token.orth, [{"U-" + token.get_NE(): '1'}], token.id)]
                     in_ne = False
             else:
                 # outside of NE
-                out += [Token(token.orth, ["O"], token.id)]
+                out += [Token(token.orth, [{"O": '1'}], token.id)]
 
     # process last token
     token = tokens[-1]
     if in_ne:
-        out += [Token(token.orth, ["L-" + token.get_NE()], token.id)]
+        out += [Token(token.orth, [{"L-" + token.get_NE(): '1'}], token.id)]
     else:
         if token.is_NE():
-            out += [Token(token.orth, ["U-" + token.get_NE()], token.id)]
+            out += [Token(token.orth, [{"U-" + token.get_NE(): '1'}], token.id)]
         else:
-            out += [Token(token.orth, ["O"], token.id)]
+            out += [Token(token.orth, [{"O": '1'}], token.id)]
 
     return out
 
@@ -291,8 +222,8 @@ def main(
                         tokens += [token]
 
                     # all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
-                    tokens = pick_tags_2(tokens)
-                    tokens = flatten_token_attrib_dicts(tokens)
+                    tokens = pick_tags(tokens)
+                    # tokens = flatten_token_attrib_dicts(tokens)
 
                     if use_label_map:
                         tokens = map_labels(tokens, NER_pwr_to_spacy)
