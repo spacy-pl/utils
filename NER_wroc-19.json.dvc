@@ -1,15 +1,15 @@
-cmd: python ConvertNER/convert_NER_wroc.py -m true data/NER/NER_wroc-19.json 
+cmd: python ConvertNER/convert_NER_wroc.py -m true data/NER/NER_wroc-19.json
 deps:
 - md5: d84971d4b907e5efc5d9320de6691027.dir
   path: data/kpwr-1.1
-- md5: c8aa684e59762c66aeba79e2727c103f
+- md5: ef34a31cd84b215fa8b545e9662921b5
   path: ConvertNER/convert_NER_wroc.py
-- md5: eee1569106fcf22473ee5a39f49f57bd
+- md5: d7d343ce8b47f93f20e3870d91c6150e
   path: ConvertNER/NER_pwr_to_spacy.py
-md5: 8edf603b1572083aedf1a95147deec94
+md5: 45c6c7a2b2424bebb77b68eab8b2f05c
 outs:
 - cache: true
-  md5: ffd284e41307a7b0815d10623a0b4c99
+  md5: d929d494d9f5c3f2b2a425ab35afd7d2
   metric: false
   path: data/NER/NER_wroc-19.json
   persist: false

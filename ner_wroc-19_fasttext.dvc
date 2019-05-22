@@ -1,0 +1,18 @@
+cmd: python -m spacy train pl models/ner_wroc-19_fasttext data/training/NER/ner-wroc-19-train.json
+  data/training/NER/ner-wroc-19-validation.json --vectors models/blank_fasttext -p
+  ner -g 0 -n 80 -e 8
+deps:
+- md5: fe3ebcb89593a8e1026e7668ffe6de23.dir
+  path: models/blank_fasttext
+- md5: 6355d90e8f76c44304a4170944608df9
+  path: data/training/NER/ner-wroc-19-train.json
+- md5: cc468e71e2b0e7f2f74571e5f6f40ca9
+  path: data/training/NER/ner-wroc-19-validation.json
+md5: 8a12e1905599d5cd27c0e89187b98c6c
+outs:
+- cache: true
+  md5: d692a9cbb70294b9d56a799e39c86e67.dir
+  metric: false
+  path: models/ner_wroc-19_fasttext
+  persist: false
+wdir: .
