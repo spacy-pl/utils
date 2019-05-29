@@ -3,6 +3,7 @@ from NER_pwr_to_spacy import NER_pwr_to_spacy
 import json
 import os
 import click
+from collections import defaultdict
 
 path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
@@ -191,6 +192,16 @@ def convert_to_biluo(tokens):
     return out
 
 
+def make_unique(tokens):
+    for tok in tokens:
+        attribs = defaultdict(int)
+        for dict in tok.attribs:
+            for k, v in dict.items():
+                attribs[k] += int(v)
+        tok.attribs = [{k: str(attribs[k])} for k in sorted(attribs)]
+    return tokens
+
+
 @click.command()
 @click.option("-m", "--use-label-map", type=bool, default=False)
 @click.argument("output_path", type=str)
@@ -216,13 +227,15 @@ def main(
                         token_idx += 1
                         tokens += [token]
 
+                    if use_label_map:
+                        tokens = map_labels(tokens,
+                                            NER_pwr_to_spacy)
+                        tokens = make_unique(tokens)
+
                     # all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
                     tokens = pick_tags(tokens)
                     # tokens = flatten_token_attrib_dicts(tokens)
 
-                    if use_label_map:
-                        tokens = map_labels(tokens,
-                                            NER_pwr_to_spacy)  # TODO dlaczego nie robić konwersji przed wybieraniem tagów
                     tokens = convert_to_biluo(tokens)
 
                     sent = {'tokens': [{
