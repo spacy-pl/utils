@@ -94,7 +94,8 @@ def map_labels(tokens, map):
 
 
 def still_in_sequence(v1, v2):
-    assert len(v1) == len(v2)  # jakim cudem ten assert działa?
+    # v1 i v2 to liczby odpowiadające tokenom z tego samego zdania więc mają tą samą długość
+    assert len(v1) == len(v2)
     return any(v1e == v2e != "0" for v1e in v1 for v2e in v2)
 
 
@@ -110,17 +111,21 @@ def get_longest_sequences(tokens):
 
     # attribs to klucze w liście słowników nazwa => int
     attribs = [k for d in tokens[0].attribs for k in d]
-    # korzystamy tu z własności, że pierwszy token ma wszystkie atrybuty czy to działa przypadkiem? (at line up)
+    # sdfadsfa
+    # korzystamy z własności że wszystkie tokeny w danym zdaniu mają takie same atrybuty
+    assert all([[k for d in t.attribs for k in d] == attribs for t in tokens[1:-1]])
 
     last_set = [v for d in tokens[0].attribs for v in d.values()]
     b = 0
     for e, current_token in enumerate(tokens[1:-1], start=1):
         new_set = [v for d in current_token.attribs for v in d.values()]
         if not still_in_sequence(last_set, new_set):
-            label_id = get_last_label(last_set)
-            if label_id is not None:
-                label = attribs[label_id]  # tu się dzieje magia wpomniana w pytaniu
+            label_id = get_last_label(last_set)  # dlaczego bierzemy pierwszą lepszą?
+            if label_id is not None:  # sekwencja się skończyła
+                label = attribs[label_id]  # tu korzystamy z tej własności
                 res.append((b, e, label))
+            # else:  # sekwencja sie nawet nie zaczęła
+            #     pass
             b = e
 
         last_set = new_set
