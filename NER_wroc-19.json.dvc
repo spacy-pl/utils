@@ -6,10 +6,10 @@ deps:
   path: ConvertNER/convert_NER_wroc.py
 - md5: d7d343ce8b47f93f20e3870d91c6150e
   path: ConvertNER/NER_pwr_to_spacy.py
-md5: 45c6c7a2b2424bebb77b68eab8b2f05c
+md5: d74a726cca8ca1291b7d2aaef964a178
 outs:
 - cache: true
-  md5: d929d494d9f5c3f2b2a425ab35afd7d2
+  md5: cb2353f55746d66b9755a5f1777c186b
   metric: false
   path: data/NER/NER_wroc-19.json
   persist: false
