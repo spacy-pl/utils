@@ -2,11 +2,11 @@ cmd: python ConvertNER/convert_NER_wroc.py -m true data/NER/NER_wroc-19.json
 deps:
 - md5: d84971d4b907e5efc5d9320de6691027.dir
   path: data/kpwr-1.1
-- md5: 40c2b80d9c926582b3bf6b5c32216110
+- md5: cd8635dce223105bfe0523a554177b37
   path: ConvertNER/convert_NER_wroc.py
 - md5: d7d343ce8b47f93f20e3870d91c6150e
   path: ConvertNER/NER_pwr_to_spacy.py
-md5: d4cd07c16898d497b3e2ac68de074d50
+md5: f60def17035d37ac4c488b3d06e0abb4
 outs:
 - cache: true
   md5: cb2353f55746d66b9755a5f1777c186b

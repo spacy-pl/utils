@@ -221,7 +221,8 @@ def main(
                     # tokens = flatten_token_attrib_dicts(tokens)
 
                     if use_label_map:
-                        tokens = map_labels(tokens, NER_pwr_to_spacy)
+                        tokens = map_labels(tokens,
+                                            NER_pwr_to_spacy)  # TODO dlaczego nie robić konwersji przed wybieraniem tagów
                     tokens = convert_to_biluo(tokens)
 
                     sent = {'tokens': [{
