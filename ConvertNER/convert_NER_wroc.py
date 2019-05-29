@@ -7,6 +7,8 @@ import click
 path_prefix = './'
 corpus_path = 'data/kpwr-1.1/'
 
+ann_set = set()
+
 
 class setCounter:
     def __init__(self):
@@ -54,6 +56,7 @@ def process_token(tok):
     for ann in tok.iter("ann"):
         if ann.attrib['chan'].endswith("nam"):  # and ann.text != "0":
             attribs += [{ann.attrib['chan']: ann.text}]
+        ann_set.add(ann.attrib['chan'])
 
     return Token(orth, attribs, -1)
 
@@ -91,6 +94,7 @@ def map_labels(tokens, map):
 
 
 def still_in_sequence(v1, v2):
+    assert len(v1) == len(v2)  # jakim cudem ten assert działa?
     return any(v1e == v2e != "0" for v1e in v1 for v2e in v2)
 
 
@@ -103,28 +107,23 @@ def get_last_label(v):
 
 def get_longest_sequences(tokens):
     res = []
-    b = 0
-    e = 0
+
+    # attribs to klucze w liście słowników nazwa => int
     attribs = [k for d in tokens[0].attribs for k in d]
-    last_set = None
+    # korzystamy tu z własności, że pierwszy token ma wszystkie atrybuty czy to działa przypadkiem? (at line up)
 
-    while e != len(tokens) - 1:
-        current_token = tokens[e]
-
-        if last_set == None:
-            last_set = [v for d in current_token.attribs for k, v in d.items()]
+    last_set = [v for d in tokens[0].attribs for v in d.values()]
+    b = 0
+    for e, current_token in enumerate(tokens[1:-1], start=1):
+        new_set = [v for d in current_token.attribs for v in d.values()]
+        if not still_in_sequence(last_set, new_set):
+            label_id = get_last_label(last_set)
+            if label_id is not None:
+                label = attribs[label_id]  # tu się dzieje magia wpomniana w pytaniu
+                res.append((b, e, label))
             b = e
-        else:
-            new_set = [v for d in current_token.attribs for k, v in d.items()]
-            if not still_in_sequence(last_set, new_set):
-                label_id = get_last_label(last_set)
-                if (label_id != None):
-                    label = attribs[label_id]
-                    res.append((b, e, label))
-                b = e
 
-            last_set = new_set
-        e += 1
+        last_set = new_set
 
     return res
 
@@ -239,6 +238,8 @@ def main(
 
     with open(os.path.expanduser(output_path), 'w+') as f:
         json.dump(corpus, f)
+
+    print(ann_set)
 
 
 if __name__ == "__main__":
