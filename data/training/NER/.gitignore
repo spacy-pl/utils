@@ -2,3 +2,8 @@
 /ner-train.json
 /ner-test.json
 /ner-validation.json
+
+
+/ner-wroc-19-train.json
+/ner-wroc-19-validation.json
+/ner-wroc-19-test.json

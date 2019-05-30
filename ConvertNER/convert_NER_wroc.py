@@ -94,7 +94,7 @@ def map_labels(tokens, map):
 
 
 def still_in_sequence(v1, v2):
-    return any(v1e == v2e != "0" for v1e in v1 for v2e in v2)
+    return any(v1e == v2e != "0" for v1e, v2e in zip(v1,v2))
 
 
 def get_last_label(v):
@@ -104,27 +104,48 @@ def get_last_label(v):
     return None
 
 
+def get_label_set(v):
+    res = set()
+    for i, e in enumerate(v):
+        if e != "0":
+            res.add(i)
+
+    return res
+
+
+import random
+def get_any_label(v):
+    if v == emptyset():
+        return None
+    return random.sample(v, 1)[0]
+
+def emptyset():
+    return set()
+
 def get_longest_sequences(tokens):
     res = []
     b = 0
     e = 0
     attribs = [k for d in tokens[0].attribs for k in d]
     last_set = None
-
+    label_set = emptyset()
     while e != len(tokens)-1:
         current_token = tokens[e]
 
-        if last_set == None:
+        if last_set == None or label_set == emptyset():
             last_set = [v for d in current_token.attribs for k, v in d.items()]
+            label_set = get_label_set(last_set)
             b = e
         else:
             new_set = [v for d in current_token.attribs for k, v in d.items()]
+            label_set = label_set.intersection(get_label_set(new_set))
             if not still_in_sequence(last_set, new_set):
-                label_id = get_last_label(last_set)
+                label_id = get_any_label(label_set)
                 if(label_id != None):
                     label = attribs[label_id]
                     res.append((b, e, label))
                 b = e
+                label_set = emptyset()
 
             last_set = new_set
         e += 1
@@ -132,7 +153,7 @@ def get_longest_sequences(tokens):
     return res
 
 
-emptyset = set()
+# emptyset = set()
 def pick_tags(tokens):
     longest_sequences = get_longest_sequences(tokens)
     res = []
@@ -190,6 +211,18 @@ def convert_to_biluo(tokens):
     return out
 
 
+def get_file_paths(index_path):
+    with open(index_path) as index_file:
+        files = []
+        line = index_file.readline()
+        while line:
+            line = line.replace('\n', '')
+            files.append(line)
+            line = index_file.readline()
+        
+        return files
+
+
 @click.command()
 @click.option("-m", "--use-label-map", type=bool, default=False)
 @click.argument("output_path", type=str)
@@ -205,46 +238,47 @@ def main(
     all_labels = setCounter()
     corpus = []
     doc_idx = 0
-    for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
-        for file in os.listdir(os.path.join(path_prefix, corpus_path, subfolder)):
-            if not file.endswith("rel.xml") and not file.endswith(".ini"):
-                sentences = []
-                token_idx = 0
-                tree = ET.parse(os.path.join(path_prefix, corpus_path, subfolder, file))
-                root = tree.getroot()
-                sents = root.iter("sentence")
-                for sent in sents:
-                    tokens = []
-                    for tok in sent.iter("tok"):
-                        token = process_token(tok)
-                        token.id = token_idx
-                        token_idx += 1
-                        tokens += [token]
+    file_paths = get_file_paths(os.path.join(path_prefix, corpus_path, 'index_names.txt'))
+    for file in file_paths:
+        file = os.path.join(path_prefix, corpus_path, file)
+        assert(not file.endswith("rel.xml") and not file.endswith(".ini"))
+        sentences = []
+        token_idx = 0
+        tree = ET.parse(file)
+        root = tree.getroot()
+        sents = root.iter("sentence")
+        for sent in sents:
+            tokens = []
+            for tok in sent.iter("tok"):
+                token = process_token(tok)
+                token.id = token_idx
+                token_idx += 1
+                tokens += [token]
 
-                    # all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
-                    tokens = pick_tags(tokens)
-                    # tokens = flatten_token_attrib_dicts(tokens)
+            # all_labels.merge(get_all_labels_with_cardinalities(tokens))  # for debug and analysis
+            tokens = pick_tags(tokens)
+            # tokens = flatten_token_attrib_dicts(tokens)
 
-                    if use_label_map:
-                        tokens = map_labels(tokens, NER_pwr_to_spacy)
-                    tokens = convert_to_biluo(tokens)
+            if use_label_map:
+                tokens = map_labels(tokens, NER_pwr_to_spacy)
+            tokens = convert_to_biluo(tokens)
 
-                    sent = {'tokens': [{
-                        'orth': t.orth,
-                        'id': t.id,
-                        'ner': t.get_NE()}
-                        for t in tokens
-                    ], 'brackets': []
-                    }
+            sent = {'tokens': [{
+                'orth': t.orth,
+                'id': t.id,
+                'ner': t.get_NE()}
+                for t in tokens
+            ], 'brackets': []
+            }
 
-                    sentences += [sent]
+            sentences += [sent]
 
-                doc_json = {
-                    'id': doc_idx,
-                    'paragraphs': [{'sentences': sentences}]
-                }
-                corpus += [doc_json]
-                doc_idx += 1
+        doc_json = {
+            'id': doc_idx,
+            'paragraphs': [{'sentences': sentences}]
+        }
+        corpus += [doc_json]
+        doc_idx += 1
 
     with open(os.path.expanduser(output_path), 'w+') as f:
         json.dump(corpus, f)
