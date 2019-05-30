@@ -121,7 +121,7 @@ def get_longest_sequences(tokens):
     for e, current_token in enumerate(tokens[1:-1], start=1):
         new_set = [v for d in current_token.attribs for v in d.values()]
         if not still_in_sequence(last_set, new_set):
-            label_id = get_last_label(last_set)  # dlaczego bierzemy pierwszą lepszą?
+            label_id = get_last_label(last_set)  # dlaczego bierzemy pierwszą lepszą? - bo to jest jedyna
             if label_id is not None:  # sekwencja się skończyła
                 label = attribs[label_id]  # tu korzystamy z tej własności
                 res.append((b, e, label))
@@ -202,6 +202,45 @@ def make_unique(tokens):
     return tokens
 
 
+def get_original():
+    corpus = []
+    doc_idx = 0
+
+    for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
+        for file in os.listdir(os.path.join(path_prefix, corpus_path, subfolder)):
+            if not file.endswith("rel.xml") and not file.endswith(".ini"):
+                sentences = []
+                token_idx = 0
+                tree = ET.parse(os.path.join(path_prefix, corpus_path, subfolder, file))
+                root = tree.getroot()
+                sents = root.iter("sentence")
+                for sent in sents:
+                    tokens = []
+                    for tok in sent.iter("tok"):
+                        token = process_token(tok)
+                        token.id = token_idx
+                        token_idx += 1
+                        tokens += [token]
+
+                    sent = {'tokens': [{
+                        'orth': t.orth,
+                        'id': t.id,
+                        'ner': t.get_NE()}
+                        for t in tokens
+                    ], 'brackets': []
+                    }
+
+                    sentences += [sent]
+
+                doc_json = {
+                    'id': doc_idx,
+                    'paragraphs': [{'sentences': sentences}]
+                }
+                corpus += [doc_json]
+                doc_idx += 1
+    return corpus
+
+
 @click.command()
 @click.option("-m", "--use-label-map", type=bool, default=False)
 @click.argument("output_path", type=str)
@@ -211,6 +250,7 @@ def main(
 ):
     corpus = []
     doc_idx = 0
+
     for subfolder in get_subdirs(os.path.join(path_prefix, corpus_path)):
         for file in os.listdir(os.path.join(path_prefix, corpus_path, subfolder)):
             if not file.endswith("rel.xml") and not file.endswith(".ini"):
@@ -255,11 +295,19 @@ def main(
                 corpus += [doc_json]
                 doc_idx += 1
 
+    original = get_original()
+
+    for org_doc, conv_doc in zip(original, corpus):
+        for org_par, conv_par in zip(org_doc['paragraphs'], conv_doc['paragraphs']):
+            for org_sent, conv_sent in zip(org_par['sentences'], conv_par['sentences']):
+                for org_tok, conv_tok in zip(org_sent['tokens'], conv_sent['tokens']):
+                    org_is_ne = org_tok['ner'] != 'None'
+                    conv_is_ne = conv_tok['ner'] != 'None'
+                    assert org_is_ne == conv_is_ne
+
     with open(os.path.expanduser(output_path), 'w+') as f:
         json.dump(corpus, f)
-
-    print(ann_set)
-
+        
 
 if __name__ == "__main__":
     main()
