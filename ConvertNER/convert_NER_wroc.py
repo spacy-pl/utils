@@ -44,9 +44,6 @@ class Token:
 
         return None
 
-    def get_cooccurences(self):
-        res = setCounter
-
     def __str__(self):
         return (self.orth + ":" + str(self.attribs))
 
@@ -55,8 +52,8 @@ def process_token(tok):
     attribs = []
     orth = tok.find("orth").text
     for ann in tok.iter("ann"):
-        if ann.attrib['chan'].endswith("nam"): # and ann.text != "0":
-            attribs += [{ann.attrib['chan']:ann.text}]
+        if ann.attrib['chan'].endswith("nam"):  # and ann.text != "0":
+            attribs += [{ann.attrib['chan']: ann.text}]
 
     return Token(orth, attribs, -1)
 
@@ -88,7 +85,7 @@ def get_all_labels_with_cardinalities(tokens):
 
 def map_labels(tokens, map):
     for tok in tokens:
-        tok.attribs = [{map[k]:v} for attrib in tok.attribs for k,v in attrib.items()]
+        tok.attribs = [{map[k]: v} for attrib in tok.attribs for k, v in attrib.items()]
 
     return tokens
 
@@ -156,12 +153,10 @@ def get_longest_sequences(tokens):
 # emptyset = set()
 def pick_tags(tokens):
     longest_sequences = get_longest_sequences(tokens)
-    res = []
     for b, e, label in longest_sequences:
         seq = tokens[b:e]
         for tok in seq:
             tok.attribs = [{label: '1'}]
-        # res += seq
         tokens[b:e] = seq
     return tokens
 
@@ -219,7 +214,7 @@ def get_file_paths(index_path):
             line = line.replace('\n', '')
             files.append(line)
             line = index_file.readline()
-        
+
         return files
 
 
@@ -230,12 +225,6 @@ def main(
         use_label_map,
         output_path,
 ):
-    if use_label_map:
-        # classes = set(NER_pwr_to_spacy.values())
-        # output = f'NER_wroc_{len(classes)}.json'
-        # this would be a cool feature but I'm not sure if it's good for automatic pipelines
-        output = 'NER_wroc_spacy_labels.json'
-    all_labels = setCounter()
     corpus = []
     doc_idx = 0
     file_paths = get_file_paths(os.path.join(path_prefix, corpus_path, 'index_names.txt'))
