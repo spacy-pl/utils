@@ -34,7 +34,7 @@ class Token:
         self.id = id
 
     def is_NE(self):
-        return self.get_NE() is not None
+        return self.get_NE() is not None and self.get_NE() != "O"
 
     def get_NE(self):
         for attrib in self.attribs:
