@@ -6,7 +6,7 @@ echo ""
 # --- SETTINGS ---
 
 PACKAGE_DIR="release"  # same as passed to combine or spacy.cli.package
-MODEL_NAME="pl_model-0.2.0"  # same as inputted in spacy.cli.package
+MODEL_NAME="pl_model-1.0.0"  # same as inputted in spacy.cli.package
 
 BUCKET_NAME="gs://spacy-pl-public-models"
 BUCKET_PUBLIC_URL="https://storage.googleapis.com/spacy-pl-public-models"
