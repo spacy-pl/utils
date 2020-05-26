@@ -1,13 +1,13 @@
 cmd: python ./lemma_rules_extraction/assign_lemmas.py
 deps:
-- md5: aed3b97835124714c571bcc26ddaf055
+- md5: ec23f4afccb190f74bff7929b8e57c93
   path: data/lemmatizer_data/polish.dic
-- md5: aed3b97835124714c571bcc26ddaf055
+- md5: dc9c0ba00d785194d6db79308c035205
   path: lemma_rules_extraction/assign_lemmas.py
-md5: d624bb2d0d0e282a600247275919edb4
+md5: c8767ed1407313b8e8ec749cc5c65b90
 outs:
 - cache: true
-  md5: a3ffe643a9206f0aaab49802a153fdfd
+  md5: c6a19edf6fa09a606c29c3d8486c4fb0
   metric: false
   path: data/lemmatizer_data/words.json
   persist: false

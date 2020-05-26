@@ -1,5 +1,7 @@
 # Przygotowane na podstawie sjp ispell 20190110
 
+# Tagi słowniku są zgodne z konwencją UD
+
 flags_desc = {
     'F': {
         'POS': ['verb'],

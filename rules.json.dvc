@@ -4,9 +4,9 @@ deps:
   path: data/lemmatizer_data/polish.aff
 - md5: 34717bc9ae4a24b78b84ed75c494f128
   path: data/lemmatizer_data/private.aff
-- md5: 34717bc9ae4a24b78b84ed75c494f128
+- md5: 23d4c3a117d46e36c9a540fe38ed9be3
   path: lemma_rules_extraction/extract_rules.py
-md5: c90a225700f5b3bcb619c5590905ba37
+md5: 44db4cdb1a7f01df29ce0f93c01ef9f4
 outs:
 - cache: true
   md5: c53b055826199aad22c3e590e23b5cd5
